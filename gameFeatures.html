@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝藏小树林，游戏作品网站！</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="images/Icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/gameFeatures.css">
+</head>
+<body>
+    <div class="topMenu">
+        <div class="loading">
+        </div>
+        <div class="left-contanier"><img class="left" src="images/tree.png"><div id="logo-title">宝藏小树林<img src="images/page-bg.png"></img></div></img></div>
+        <ul class="center">
+            <li><a onclick="loading.in('index.html')" class="productionCenter"><img class="left-p" src="images/menu-l.png"></img>视频展示<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('introduction.html')" class="waysIntroduction"><img class="left-p" src="images/menu-l.png"></img>方向展望<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('gameFeatures.html')" class="gameFeature"><img class="left-p" src="images/menu-l.png"></img>游戏哲学<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('photoRecord.html')" class="photoRecord"><img class="left-p" src="images/menu-l.png"></img>光影记录<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('myselfIntroduction.html')" class="myselfIntroduction"><img class="left-p" src="images/menu-l.png"></img>个人简介<img class="right-p" src="images/menu-l.png"></img></a></li>
+        </ul>
+        <script src="js/fakeTransition.js"></script>
+        <img class="right" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()">
+            <audio src="music/Ayase,初音ミク - フィクションブルー.mp3" id="music" autoplay="autoplay" style="cursor: pointer;"></audio>
+            <script src="js/titlemusic.js"></script>
+        </img>
+        <img  id="right-share" src="images/share.png">
+
+        </img>
+    </div>
+    <video class="main_body_bg" src="video/bg3.mp4" autoplay loop muted>  
+    </video>
+    <div id="main">
+        <div id="click-section">
+          <div id="drawerboxes">
+            <div class="drawerbox active">
+              <button class="drawer-btn active" onclick="slideTo(1)">心流之歌<span
+                  class="drawer-head">1</span></button>
+            </div>
+            <div class="drawerbox">
+              <button class="drawer-btn" onclick="slideTo(2)">情感至深<span
+                  class="drawer-head">2</span></button>
+            </div>
+            <div class="drawerbox">
+              <button class="drawer-btn" onclick="slideTo(3)">画面华美<span class="drawer-head">3</span></button>
+            </div>
+            <div class="drawerbox">
+              <button class="drawer-btn" onclick="slideTo(4)">Title Here<span class="drawer-head">4</span></button>
+            </div>
+          </div>
+        </div>
+        <div id="slide-section">
+          <div id="slide-bar">
+            <div id="bar"></div>
+          </div>
+          <div id="card-section">
+            <div id="card1" class="card">
+              <div class="card-small-title">heart flow</div>
+              <div class="card-title">心流之歌，造就心魂一致</div>
+              <div class="card-content">
+                "心流之歌，悠扬在游戏间，
+                心魂合一，沉浸于无边界。
+                指尖舞动，情感交织成篇，
+                忘我之境，体验极致的甘甜。
+                在心流之海，思绪如浪翻，
+                专注之力，铸就辉煌瞬间。
+                心流之中，时间消逝无痕，
+                游戏之魂，由此共鸣而深。"
+                </div>
+              <div class="card-img">
+                <img src="./upload/02.jpg" alt="">
+              </div>
+            </div>
+            <div id="card2" class="card">
+              <div class="card-small-title">Emotional people, feel sad</div>
+              <div class="card-title">动情之人，感殇悲戚</div>
+              <div class="card-content">
+                "动情之人，泪洒战场边缘，
+                心流深处，悲戚化作力量源泉。
+                游戏之中，情感流淌如细水，
+                心流之境，悲伤转化为艺术的绚。
+                在心流之海，情感澎湃不息，
+                悲伤与喜乐，交织成游戏的意义。
+                动情之人，于虚拟世界找到慰藉，
+                心流之中，情感得以完整，灵魂得以飞翔。"
+                 </div>
+              <div class="card-img">
+                <img src="./upload/01.jpeg" alt="">
+              </div>
+            </div>
+            <div id="card3" class="card">
+              <div class="card-small-title">Dazzling eyes, all shocked</div>
+              <div class="card-title">琳琅满目，皆为震撼</div>
+              <div class="card-content">
+                "琳琅满目，画面夺目璀璨，
+                每一帧绘，皆震撼心田。
+                游戏中景，如诗如画展卷，
+                视觉盛宴，情感由此波澜。
+                画面之美，引领心灵飞翔，
+                色彩斑斓，故事在眼中绽放。
+                琳琅世界，细节处见真章，
+                游戏之魅，画面赋予灵魂的光芒。"
+                </div>
+              <div class="card-img">
+                <img src="./upload/03.jpg" alt="">
+              </div>
+            </div>
+            <div id="card4" class="card">
+              <div class="card-small-title">Happy joy, enjoy Tai Chi</div>
+              <div class="card-title">愉悦之乐，安享太极</div>
+              <div class="card-content">
+                "愉悦之乐，流淌于指尖，
+                游戏中漫步，安享太极之境。
+                轻松的氛围，如春风拂面，
+                心灵得以憩，在虚拟的田园。
+                轻松之戏，忘却尘世烦忧，
+                游戏之中，笑谈间云淡风轻。
+                愉悦之乐，润泽玩家的心田，
+                在轻松的游戏里，找到片刻的宁和。"
+                </div>
+              <div class="card-img">
+                <img src="./upload/04.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="js/huandeng.js"></script>
+</body>
+</html>

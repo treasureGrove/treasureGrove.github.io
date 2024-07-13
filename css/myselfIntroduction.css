@@ -1,0 +1,125 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.main_body_bg {
+  position: fixed;
+  top: 0;
+  z-index: -4;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shell {
+    top: -5%;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    height: 550%;
+    background: rgba(43, 43, 43, 0.8);
+}
+.head {
+    height: 16%;
+    margin-left: 60px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.cover {
+    position: absolute;
+    top: 190px;
+    left: 100px;
+    width: 220px;
+    z-index: 2;
+    border-radius: 500px;
+    border: 10px #fff solid;
+    box-shadow: 0 5px 10px #00000065;
+}
+
+.data {
+    padding: 190px 0 0 280px;
+    text-shadow: 0 0 20px #000;
+    margin-right: 60px;
+}
+
+.data .title1 {
+    color: white;
+    font-size: 50px;
+    font: 900 50px '';
+    margin-top: 30px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.data .title1 span {
+    position: absolute;
+    top: 17px;
+    margin-left: 12px;
+    background: #ffe44c;
+    border-radius: 5px;
+    color: #000000;
+    font-size: 14px;
+    border-bottom: 2px solid #fff;
+}
+
+.data .title2 {
+    color: #fff;
+    font: 500 24px '';
+    margin-bottom: 24px;
+    border-bottom: 2px solid #fff;
+}
+.data .title3 {
+    color: #fff;
+    font: 500 20px '';
+    margin-top: 60px;
+}
+
+.foot {
+    line-height: 26px;
+    color: #444;
+    margin-right: 60px;
+    padding-bottom: 60px;
+    border-bottom: 2px solid #fff;
+}
+
+.tags {
+    padding-left: 40px;
+    margin-top: -130px;
+    width: 250px;
+    float: left;
+    text-align: center;
+}
+
+.tag {
+    background: rgb(149, 178, 255);
+    color: #fff;
+    border-radius: 10px;
+    padding: 3px 8px;
+    font-size: 14px;
+    margin-right: 4px;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+.tag:hover {
+    background: #eee4ad;
+    color: #444;
+}
+.mainText{
+    margin-left: 60px;
+    margin-right: 60px;
+    color: #fff;
+    font: 900 50px '';
+    text-shadow: 0 0 20px #000;
+}
+.mainText .title{
+    font: 900 50px '';
+    margin-bottom: 50px;
+}
+.mainText .mainbodyText{
+    font: 500 24px '';
+    line-height: 40px;
+    padding-bottom: 60px;
+    border-bottom: 2px solid #fff;
+}
