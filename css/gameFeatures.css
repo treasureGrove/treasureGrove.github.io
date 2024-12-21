@@ -83,9 +83,9 @@ body {
 
 .drawer-btn.active {
   background: url(../images/booking-bg.jpg);
-  opacity: 0.8;
+  opacity: 0.7;
   background-size: cover;
-  color: rgb(48, 87, 218);
+  color: rgb(14, 58, 205);
 }
 
 .drawer-btn:hover {
@@ -153,14 +153,14 @@ body {
   font-size: 30px;
   font-weight: 600;
   padding-bottom: min(5%, 10px);
-  color: rgb(48, 87, 218);
+  color: #5476db
 }
 
 .card-title {
   font-size: 80px;
   font-weight: 700;
   padding-bottom: min(20%, 40px);
-  color: rgb(48, 87, 218);
+  color: rgb(171, 190, 253);
 }
 
 .card-content {

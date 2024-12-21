@@ -10,7 +10,7 @@
     position: relative;
     overflow: hidden;
 }
-#bgVideo{
+#bgImage{
     position: absolute;
     top: 0;
     left: 0;
@@ -18,6 +18,16 @@
     height: 100%;
     object-fit: cover;
     z-index: -3;
+}
+#bgSnow{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: blur(1px);
 }
 .Arrow {
     width: 80px;
@@ -53,15 +63,16 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: rgb(255, 255, 255);
+    color: rgb(222, 222, 222);
     transition: transform .8s ease-in-out;
-    text-shadow: 1px  1px 6px rgb(43, 43, 43);
+    text-shadow: 1px  1px 50px rgb(43, 43, 43);
+    -webkit-text-stroke: 0.2px #202020;
 }
 
 .card-time {
     font-size: 40px;
     font-weight: 700;
-    color: rgb(48, 87, 218);
+    color: rgb(45, 125, 255);
 }
 
 .card-title {
@@ -70,7 +81,7 @@
     padding-bottom: 10px;
     border-bottom: 2px solid  rgb(50, 50, 50);
     margin-bottom: 10px;
-    color: rgb(48, 87, 218);
+    color: rgb(45, 125, 255);
 }
 
 .card-passage {
