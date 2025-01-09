@@ -10,9 +10,9 @@ for (var i = 0; i < items.length; i++) {
     var leftBox = frame.getElementsByClassName('left')[0];
     var rightBox = frame.getElementsByClassName('right')[0];
     // 设置背景图片
-    frontBox.style.backgroundImage = 'url(./img/' + (i + 1).toString().padStart(2, '0') + '.jpg)';
-    leftBox.style.backgroundImage = 'url(./img/' + (i + 1).toString().padStart(2, '0') + '.jpg)';
-    rightBox.style.backgroundImage = 'url(./img/' + (i + 1).toString().padStart(2, '0') + '.jpg)';
+    frontBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
+    leftBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
+    rightBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
 }
 (function () {
     "use strict";
@@ -24,7 +24,7 @@ for (var i = 0; i < items.length; i++) {
     // 定义变量
     var width, height, totalWidth, margin = 20,
         currIndex = 0,
-        interval, intervalTime = 10000;
+        interval, intervalTime = 20000;
     function init() {
         // 初始化函数
         resize(); 
@@ -64,7 +64,7 @@ for (var i = 0; i < items.length; i++) {
         for (var i = 0; i < items.length; i++) {
             let item = items[i],
                 box = item.getElementsByClassName('frame')[0];
-                item.style.opacity="0.5";
+                item.style.opacity="0.4";
                 item.style.zIndex="1";
             if (i == (index - 1)) {
                 // 当前item添加active类并设置3D效果
@@ -83,7 +83,7 @@ for (var i = 0; i < items.length; i++) {
         slider.style.transform = "translate3d(" + ((index * -width) + (width / 2) + window.innerWidth / 2) + "px, 0, 0)";
         // 设置body背景图片
         var frontBox = items[index - 1].getElementsByClassName('front')[0];
-        mainBg.style.backgroundImage = frontBox.style.backgroundImage;
+        mainBg.style.backgroundImage = 'url(./upload/' + (index).toString().padStart(2, '0') + '.jpg)';
     }
     function timer() {
         // 定时器，自动切换shell

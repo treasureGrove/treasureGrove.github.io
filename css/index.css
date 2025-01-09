@@ -70,7 +70,8 @@
     height: 50px;
     justify-content: start;
 }
-.logo1{
+
+.logo1 {
     top: 10px;
     position: absolute;
     left: 10px;
@@ -113,7 +114,8 @@
     display: inline;
     height: 60px;
 }
-.rightPlay{
+
+.rightPlay {
     position: absolute;
     top: 10px;
     right: 100px;
@@ -296,5 +298,7 @@
         transition: all 1s ease-in;
         z-index: 1;
         opacity: 1;
+
     }
+    
 }
