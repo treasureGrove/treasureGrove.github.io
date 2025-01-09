@@ -29,9 +29,9 @@
     align-items: center;
     width: 380px;
     position: absolute;
-    left: 20%;
-    transform: translateX(-60%);
-    bottom: -85%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -90%;
 }
 
 .prev,
@@ -66,8 +66,8 @@
     cursor: pointer;
     position: relative;
     float: left;
-    margin: 50px 20px ;
-    transform: translateX(-150%);
+    margin: 0 20px;
+    transform: translate(-30%);
 }
 
 .frame {
@@ -111,7 +111,6 @@
 
 .box h1 {
     text-shadow: 0 0 30px #1f05b4;
-    opacity: 80%;
     font-size: 100px;
 }
 

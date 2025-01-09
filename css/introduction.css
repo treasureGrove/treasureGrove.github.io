@@ -65,7 +65,7 @@
     justify-content: center;
     color: rgb(222, 222, 222);
     transition: transform .8s ease-in-out;
-    text-shadow: 1px  1px 50px rgb(43, 43, 43);
+    text-shadow: 1px  1px 50px rgb(255, 190, 190);
     -webkit-text-stroke: 0.2px #202020;
 }
 
@@ -77,16 +77,17 @@
 
 .card-title {
     font-size: 50px;
-    font-weight: 500;
+    font-weight: 800;
     padding-bottom: 10px;
     border-bottom: 2px solid  rgb(50, 50, 50);
     margin-bottom: 10px;
-    color: rgb(45, 125, 255);
+    text-shadow: 1px  1px 50px rgb(101, 85, 85);
+    color: rgb(113, 166, 252);
 }
 
 .card-passage {
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 #clock {
