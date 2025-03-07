@@ -1,14 +1,16 @@
 var items = document.getElementsByClassName('item');
-const mainBg=document.getElementById('mainBodyBG')
+var pages=document.getElementsByClassName('previewOnlinePage');
+const mainBg = document.getElementById('mainBodyBG')
 // 循环遍历每个item
 for (var i = 0; i < items.length; i++) {
     // 获取当前item
     var item = items[i];
-
+   
     var frame = item.getElementsByClassName('frame')[0];
     var frontBox = frame.getElementsByClassName('front')[0];
     var leftBox = frame.getElementsByClassName('left')[0];
     var rightBox = frame.getElementsByClassName('right')[0];
+    
     // 设置背景图片
     frontBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
     leftBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
@@ -19,15 +21,17 @@ for (var i = 0; i < items.length; i++) {
     var shell = document.getElementsByClassName('shell')[0];
     var slider = shell.getElementsByClassName('shell_slider')[0];
     var items = shell.getElementsByClassName('item');
+    
     var prevBtn = shell.getElementsByClassName('prev')[0];
     var nextBtn = shell.getElementsByClassName('next')[0];
+    var previewBtn = shell.getElementsByClassName('preview')[0];
     // 定义变量
     var width, height, totalWidth, margin = 20,
         currIndex = 0,
         interval, intervalTime = 20000;
     function init() {
         // 初始化函数
-        resize(); 
+        resize();
         move(Math.floor(items.length / 2));
         bindEvents();
         bindItemClickEvents();
@@ -35,7 +39,7 @@ for (var i = 0; i < items.length; i++) {
     }
     function resize() {
         // 窗口大小变化时调整大小
-        width = Math.max(window.innerWidth*.3 , 275);
+        width = Math.max(window.innerWidth * .3, 275);
         height = window.innerHeight * .5;
         totalWidth = width * items.length;
         // 设置slider宽度
@@ -54,6 +58,8 @@ for (var i = 0; i < items.length; i++) {
         // 点击prev按钮切换item
         prevBtn.addEventListener('click', () => { prev(); });
         nextBtn.addEventListener('click', () => { next(); });
+        previewBtn.addEventListener('click',()=>{previewCurrentPage()});
+
     }
     function move(index) {
         // 移动shell到指定的item
@@ -64,13 +70,13 @@ for (var i = 0; i < items.length; i++) {
         for (var i = 0; i < items.length; i++) {
             let item = items[i],
                 box = item.getElementsByClassName('frame')[0];
-                item.style.opacity="0.4";
-                item.style.zIndex="1";
+            item.style.opacity = "0.4";
+            item.style.zIndex = "1";
             if (i == (index - 1)) {
                 // 当前item添加active类并设置3D效果
                 item.classList.add('item--active');
-                item.style.opacity="1";
-                item.style.zIndex="999";
+                item.style.opacity = "1";
+                item.style.zIndex = "999";
                 box.style.transform = "perspective(1200px)";
             } else {
                 // 其他item移除active类并设置3D效果
@@ -79,7 +85,7 @@ for (var i = 0; i < items.length; i++) {
             }
         }
         // 移动slider
-       
+
         slider.style.transform = "translate3d(" + ((index * -width) + (width / 2) + window.innerWidth / 2) + "px, 0, 0)";
         // 设置body背景图片
         var frontBox = items[index - 1].getElementsByClassName('front')[0];
@@ -101,11 +107,16 @@ for (var i = 0; i < items.length; i++) {
         move(++currIndex);
         timer();
     }
+    function previewCurrentPage() {
+        window.open("https://"+pages[currIndex-1].innerHTML, "_blank" );
+
+        console.log(pages[currIndex-1].innerHTML);
+    }
     function bindItemClickEvents() {
         // 为每个item绑定点击事件
         for (var i = 0; i < items.length; i++) {
-            items[i].addEventListener('click', function(i) {
-                return function() {
+            items[i].addEventListener('click', function (i) {
+                return function () {
                     move(i + 1);
                 };
             }(i));

@@ -31,14 +31,13 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -90%;
+    bottom: -80%;
 }
 
 .prev,
 .next {
     transition: transform 0.25s ease;
     z-index: 99999;
-    bottom: 5px;
 }
 
 .prev i,
@@ -47,6 +46,17 @@
     color: #fff;
     cursor: pointer;
     text-shadow: 0 0 10px #ffffff;
+}
+.preview{
+    font: 800;
+    font-size: 90px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 0 10px #ffffff;
+}
+.preview:hover{
+    color: #9e9e9e;
+    text-shadow: 0 0 10px #9e9e9e;
 }
 
 .shell_body {
@@ -120,7 +130,9 @@
     padding: 0 25px;
     text-shadow: 0 0 10px #1f05b4;
 }
-
+.previewOnlinePage{
+    display: none;
+}
 .front,
 .left,
 .right {
@@ -134,14 +146,12 @@
     width: 60px;
     backface-visibility: hidden;
 }
-
 .left {
     left: 0;
     border-left-width: 5px;
     transform: translate3d(1px, 0, -60px) rotateY(-90deg);
     transform-origin: 0%;
 }
-
 .right {
     right: 0;
     border-right-width: 5px;
