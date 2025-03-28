@@ -37,12 +37,17 @@
                                 src="images/menu-l.png"></img></a></li>
                 </ul> 
                 <script src="js/fakeTransition.js"></script>
-                <img class="right" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()">
+                <img class="right" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()" style="cursor: pointer;">
                 <audio src="music/Ayase,初音ミク - フィクションブルー.mp3" id="music" autoplay="autoplay"
                     style="cursor: pointer;"></audio>
                 </img>
                 <img id="right-share" src="images/share.png">
                 </img>
+                <div id="share-panel" class="shareThisWeb" >
+                    <p>分享链接：</p>
+                    <input type="text" value="https://treasuregrove.github.io/index.html" readonly style="width: 200px;">
+                    <button onclick="copyLink()">复制链接</button>
+                </div>
                 <script src="js/sakura.js"></script>
             </div>
             <div class="bgimg"></div>
