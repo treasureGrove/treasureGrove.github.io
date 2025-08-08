@@ -218,17 +218,18 @@
 
     .playVideo .kaijing {
         display: inline-block;
-        position: absolute;
+        position: fixed;
         margin: 0;
         padding: 0;
         left: 0;
         top: 0;
         content: "";
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         transform: scale(200%);
         z-index: -1;
         background: url(../images/kaijing.png) no-repeat center center;
+        background-size: cover;
         opacity: 0;
         transition: all 0.3s ease-in;
     }
@@ -280,7 +281,7 @@
         border: 5px solid rgb(48, 87, 218);
         border-radius: 10px;
         background-color: rgba(105, 105, 105, 0.7);
-        transition: all 0.4s ease-in-out;
+        transition: all 0.1s ease-in-out;
         z-index: -4;
         opacity: 0;
     }
@@ -295,7 +296,7 @@
         border: 5px solid rgb(48, 87, 218);
         border-radius: 10px;
         background-color: rgba(105, 105, 105, 0.7);
-        transition: all 1s ease-in;
+        transition: all 0.3s ease-in;
         z-index: 1;
         opacity: 1;
 
