@@ -26,10 +26,10 @@
             <li><a onclick="loading.in('myselfIntroduction.html')" class="myselfIntroduction"><img class="left-p" src="images/menu-l.png"></img>个人简介<img class="right-p" src="images/menu-l.png"></img></a></li>
             <li><a onclick="loading.in('titleShow.html')" class="titleShow"><img class="left-p" src="images/menu-l.png"></img>实用工具<img class="right-p" src="images/menu-l.png"></img></a></li>
         </ul>
-        <script src="js/fakeTransition.js"></script>
+    <script src="js/fakeTransition.js" async></script>
         <img class="rightPlay" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()">
         <audio src="music/Ayase,初音ミク - フィクションブルー.mp3" id="music" autoplay="autoplay" style="cursor: pointer;"></audio>
-        <script src="js/titlemusic.js"></script>
+    <script src="js/titlemusic.js" async></script>
         </img>
         <img id="right-share" src="images/share.png">
         </img>
@@ -39,19 +39,14 @@
             <button onclick="copyLink()">复制链接</button>
         </div>
     </div>
-    <div id="mainBodyBG">
-
-
-    </div>
+    <div id="mainBodyBG"></div>
     <div class="shell">
         <div class="shell_body">
             <div class="button">
                 <div class="prev"><i>&lt;</i></div>
-                <div class="preview">详情
-                </div>
+                <div class="preview">详情</div>
                 <div class="next"><i>&gt;</i></div>
             </div>
-
             <div class="shell_slider">
                 <div class="item">
                     <div class="frame">
@@ -166,7 +161,10 @@
             </div>
         </div>
     </div>
-    <script src="js/artworkShow.js"></script>
+            </div>
+        </div>
+    </div>
+    <script src="js/artworkShow.js" async></script>
 
 </body>
 
