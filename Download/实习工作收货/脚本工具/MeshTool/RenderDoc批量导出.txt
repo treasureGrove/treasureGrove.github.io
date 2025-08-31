@@ -1,0 +1,242 @@
+import sys
+import csv
+import struct
+import os
+#输出文件夹
+folderName = "D:/capMesh1"
+#起始EID
+startIndex = 6050
+#结束EID
+endIndex = 6100
+isPrint = False
+#控制是否保存贴图
+isSaveTexture = False  
+
+if 'renderdoc' not in sys.modules and '_renderdoc' not in sys.modules:
+    import renderdoc
+
+rd = renderdoc
+
+class MeshData(rd.MeshFormat):
+    indexOffset = 0
+    name = ''
+
+def pySaveTexture(resourceId, eventId, controller):
+    if not isSaveTexture:  # 增加的判断
+        return
+    texsave = rd.TextureSave()
+    texsave.resourceId = resourceId
+    if texsave.resourceId == rd.ResourceId.Null():
+        return False
+    filename = str(int(texsave.resourceId))
+    texsave.mip = 0
+    texsave.slice.sliceIndex = 0
+    texsave.alpha = rd.AlphaMapping.Preserve
+    texsave.destType = rd.FileType.PNG
+    outDir = "{0}/{1}".format(folderName, eventId)
+    if not os.path.exists(outDir):
+        os.makedirs(outDir)
+    outTexPath = "{0}/{1}.png".format(outDir, filename)
+    controller.SaveTexture(texsave, outTexPath)
+    if isPrint:
+        print("[Texture] Saved: {0}".format(outTexPath))
+    return True
+
+def unpackData(fmt, data):
+    formatChars = {}
+    formatChars[rd.CompType.UInt]  = "xBHxIxxxL"
+    formatChars[rd.CompType.SInt]  = "xbhxixxxl"
+    formatChars[rd.CompType.Float] = "xxexfxxxd"
+    formatChars[rd.CompType.UNorm] = formatChars[rd.CompType.UInt]
+    formatChars[rd.CompType.UScaled] = formatChars[rd.CompType.UInt]
+    formatChars[rd.CompType.SNorm] = formatChars[rd.CompType.SInt]
+    formatChars[rd.CompType.SScaled] = formatChars[rd.CompType.SInt]
+
+    vertexFormat = str(fmt.compCount) + formatChars[fmt.compType][fmt.compByteWidth]
+    value = struct.unpack_from(vertexFormat, data, 0)
+
+    if fmt.compType == rd.CompType.UNorm:
+        divisor = float((2 ** (fmt.compByteWidth * 8)) - 1)
+        value = tuple(float(i) / divisor for i in value)
+    elif fmt.compType == rd.CompType.SNorm:
+        maxNeg = -float(2 ** (fmt.compByteWidth * 8)) / 2
+        divisor = float(-(maxNeg-1))
+        value = tuple((float(i) if (i == maxNeg) else (float(i) / divisor)) for i in value)
+    if fmt.BGRAOrder():
+        value = tuple(value[i] for i in [2, 1, 0, 3])
+    return value
+
+def getMeshInputs(controller, draw):
+    state = controller.GetPipelineState()
+    ib = state.GetIBuffer()
+    vbs = state.GetVBuffers()
+    attrs = state.GetVertexInputs()
+
+    # ???? fragment shader ?????
+    usedDescriptors = state.GetReadOnlyResources(rd.ShaderStage.Fragment)
+    for desc in usedDescriptors:
+        rid = None
+        if hasattr(desc, 'descriptor') and desc.descriptor is not None:
+            rid = desc.descriptor.resource
+        elif hasattr(desc, 'resource') and desc.resource is not None:
+            rid = desc.resource
+        elif hasattr(desc, 'resourceId') and desc.resourceId is not None:
+            rid = desc.resourceId
+        else:
+            rid = None
+        if rid is not None and rid != rd.ResourceId.Null():
+            pySaveTexture(rid, draw.eventId, controller)
+
+    meshInputs = []
+    for attr in attrs:
+        if attr.perInstance:
+            # ?? instance ??
+            continue
+        meshInput = MeshData()
+        meshInput.indexResourceId = ib.resourceId if ib is not None else rd.ResourceId.Null()
+        meshInput.indexByteOffset = ib.byteOffset if ib is not None else 0
+        meshInput.indexByteStride = ib.byteStride if ib is not None else 0
+        meshInput.baseVertex = draw.baseVertex
+        meshInput.indexOffset = draw.indexOffset
+        meshInput.numIndices = draw.numIndices
+
+        if not (draw.flags & rd.ActionFlags.Indexed):
+            meshInput.indexResourceId = rd.ResourceId.Null()
+            meshInput.indexByteStride = 0
+
+        # ?? attribute ? vertexBuffer ??????
+        if attr.vertexBuffer >= len(vbs):
+            continue # skip this attrib
+
+        vb = vbs[attr.vertexBuffer]
+        meshInput.vertexByteOffset = attr.byteOffset + vb.byteOffset + draw.vertexOffset * vb.byteStride
+        meshInput.format = attr.format
+        meshInput.vertexResourceId = vb.resourceId
+        meshInput.vertexByteStride = vb.byteStride
+        meshInput.name = attr.name
+        meshInputs.append(meshInput)
+    return meshInputs
+
+def getIndices(controller, mesh):
+    """?????????????????? Index Buffer"""
+    if mesh.numIndices == 0:
+        return []
+    if mesh.indexResourceId == rd.ResourceId.Null():
+        # ?indexed draw????????
+        return list(range(mesh.numIndices))
+    indexStride = mesh.indexByteStride
+    if indexStride not in [1, 2, 4]:
+        print("[WARN] Unhandled index stride:", indexStride)
+        return []
+    indexFormat = {1:'B', 2:'H', 4:'I'}[indexStride]
+    idxdata = controller.GetBufferData(mesh.indexResourceId, mesh.indexByteOffset, mesh.numIndices * indexStride)
+    if not idxdata or len(idxdata) < mesh.numIndices * indexStride:
+        print("[WARN] index buffer data not enough")
+        return []
+    indices = struct.unpack_from(str(mesh.numIndices) + indexFormat, idxdata, 0)
+    # Base vertex ?indexOffset
+    return [i + mesh.baseVertex for i in indices]
+
+def getVertexData(controller, mesh, index):
+    """??? mesh/vertex ????????? tuple"""
+    offset = mesh.vertexByteOffset + mesh.vertexByteStride * index
+    blob = controller.GetBufferData(mesh.vertexResourceId, offset, mesh.format.compByteWidth * mesh.format.compCount)
+    if not blob or len(blob) < mesh.format.compByteWidth * mesh.format.compCount:
+        # ????
+        return None
+    try:
+        value = unpackData(mesh.format, blob)
+        return value
+    except:
+        return None
+
+def printMeshData(controller, meshData, draw):
+    if not meshData:
+        print("[Mesh] No mesh data found at event:", draw.eventId)
+        return
+
+    indices = getIndices(controller, meshData[0])
+
+    # ?indexed?????????vertex
+    if not indices:
+        # fallback???draw?indices?numIndices??,???????
+        # ?????????buffer??/stride????????????????
+        if meshData[0].vertexByteStride > 0:
+            # ???? = buffer?? / stride
+            buffSize = controller.GetBufferData(meshData[0].vertexResourceId, 0, 0)
+            vtxcount = int(len(buffSize) / meshData[0].vertexByteStride)
+            indices = list(range(vtxcount))
+
+    if not indices:
+        print("[Mesh] No indices/vertices to export at event:", draw.eventId)
+        return
+
+    csvArray = []
+    fileheader = ["VTX", "IDX"]
+    formatxyzw = [".x",".y",".z",".w"]
+    for attr in meshData:
+        if not attr.format.Special():
+            for i in range(attr.format.compCount):
+                newStr = "{}{}".format(attr.name,formatxyzw[i])
+                fileheader.append(newStr)
+    csvArray.append(fileheader)
+
+    outDir = "{0}/{1}".format(folderName, draw.eventId)
+    if not os.path.exists(outDir):
+        os.makedirs(outDir)
+    outPath = "{0}/model.csv".format(outDir)
+    with open(outPath, "w", newline='') as csvFile:
+        writer = csv.writer(csvFile)
+        for vi,iidx in enumerate(indices):
+            row = [vi, iidx]
+            for attr in meshData:
+                arr = getVertexData(controller, attr, iidx)
+                if arr is not None:
+                    row.extend(arr)
+                else:
+                    row.extend([0]*attr.format.compCount)
+            csvArray.append(row)
+        writer.writerows(csvArray)
+    print("[Mesh] Exported: {0}".format(outPath))
+
+def sampleCodePreDraw(controller, draw):
+    if draw.eventId >= startIndex and draw.eventId <= endIndex:
+        controller.SetFrameEvent(draw.eventId, True)
+        meshInputs = getMeshInputs(controller, draw)
+        printMeshData(controller, meshInputs, draw)
+
+def sampleCodeRecursion(controller, draw):
+    sampleCodePreDraw(controller, draw)
+    for d in draw.children:
+        sampleCodeRecursion(controller, d)
+
+def sampleCode(controller):
+    for draw in controller.GetRootActions():
+        sampleCodeRecursion(controller, draw)
+
+def loadCapture(filename):
+    cap = rd.OpenCaptureFile()
+    status = cap.OpenFile(filename, '', None)
+    if status != rd.ReplayStatus.Succeeded:
+        raise RuntimeError("Couldn't open file: " + str(status))
+    if not cap.LocalReplaySupport():
+        raise RuntimeError("Capture cannot be replayed")
+    status, controller = cap.OpenCapture(rd.ReplayOptions(), None)
+    if status != rd.ReplayStatus.Succeeded:
+        raise RuntimeError("Couldn't initialise replay: " + str(status))
+    return (cap, controller)
+
+if 'pyrenderdoc' in globals():
+    pyrenderdoc.Replay().BlockInvoke(sampleCode)
+else:
+    rd.InitialiseReplay(rd.GlobalEnvironment(), [])
+    if len(sys.argv) <= 1:
+        print('Usage: python3 {} filename.rdc'.format(sys.argv[0]))
+        sys.exit(0)
+    cap, controller = loadCapture(sys.argv[1])
+    sampleCode(controller)
+    controller.Shutdown()
+    cap.Shutdown()
+    rd.ShutdownReplay()
+
+print("Completed.")
