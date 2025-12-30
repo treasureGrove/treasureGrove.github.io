@@ -1,0 +1,2 @@
+插件有.py和zip两个版本
+blender 4.1 ：安装zip或.py皆可

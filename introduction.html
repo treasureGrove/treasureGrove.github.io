@@ -16,6 +16,8 @@
         <script src="js/snow.js"></script>
         <div class="topMenu">
             <div class="loading">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">加载中…</div>
             </div>
             <div class="left-contanier"><img class="left" src="images/tree.png"><div id="logo-title">宝藏小树林<img src="images/page-bg.png"></img></div></img></div>
             <ul class="center">
@@ -24,6 +26,7 @@
                 <li><a onclick="loading.in('gameFeatures.html')" class="gameFeature"><img class="left-p" src="images/menu-l.png"></img>游戏哲学<img class="right-p" src="images/menu-l.png"></img></a></li>
                 <li><a onclick="loading.in('photoRecord.html')" class="photoRecord"><img class="left-p" src="images/menu-l.png"></img>作品记录<img class="right-p" src="images/menu-l.png"></img></a></li>
                 <li><a onclick="loading.in('myselfIntroduction.html')" class="myselfIntroduction"><img class="left-p" src="images/menu-l.png"></img>个人简介<img class="right-p" src="images/menu-l.png"></img></a></li>
+                <li><a onclick="loading.in('titleShow.html')" class="titleShow"><img class="left-p" src="images/menu-l.png"></img>实用工具<img class="right-p" src="images/menu-l.png"></img></a></li>
             </ul>
             <script src="js/fakeTransition.js"></script>
             <img class="right" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()">
@@ -45,87 +48,24 @@
         <i class="Arrow" id="down-btn" onclick="slideToNext()">⇩</i>
         <div id="content">
             <div class="card">
-                <div class="card-time">
-                    01
-                </div>
-                <div class="card-title">
-                    《技术美术，逻辑与创意的交响曲》
-                </div>
-                <div class="card-passage">
-                    <br>
-                    技术美术，是理性与感性的完美融合，是逻辑与创意的交响曲。在技术的严谨中寻找美术的灵感，在美术的灵动中嵌入技术的深度。不断前行，你不仅攀登着技术的巅峰，也在绘制着艺术的奇迹。
-                    <br>
-                    <br>
-                    "Techno-artistry is the symphony of logic and creativity, where the precision of technology meets the inspiration of art."
-                </div>
+                <div class="card-time">01</div>
+                <div class="card-title">《技术美术，逻辑与创意的交响曲》</div>
+                <div class="card-passage"><br>技术美术，是理性与感性的完美融合，是逻辑与创意的交响曲。在技术的严谨中寻找美术的灵感，在美术的灵动中嵌入技术的深度。不断前行，你不仅攀登着技术的巅峰，也在绘制着艺术的奇迹。<br><br>"Techno-artistry is the symphony of logic and creativity, where the precision of technology meets the inspiration of art."</div>
             </div>
             <div class="card">
-                <div class="card-time">
-                    02
-                </div>
-                <div class="card-title">
-                    《游戏特效设计，鼓舞人心的光束》
-                </div>
-                <div class="card-passage">
-                    <br>
-                    游戏特效，绘梦之师， 放弃即画面失色，坚持则光芒四溢。 逐光之旅，不懈前行， 卓越之路，由每一道光束铺就。
-                    <br>
-                    <br>
-                    "Game effects, the weaver of dreams,
-                    To quit is to let the screen dim, to persevere is to let light stream.
-                    Chasing the light, ever unyielding,
-                    The path to excellence, paved with every beam."
-                </div>
+                <div class="card-time">02</div>
+                <div class="card-title">《游戏特效设计，鼓舞人心的光束》</div>
+                <div class="card-passage"><br>游戏特效，绘梦之师， 放弃即画面失色，坚持则光芒四溢。 逐光之旅，不懈前行， 卓越之路，由每一道光束铺就。<br><br>"Game effects, the weaver of dreams, To quit is to let the screen dim, to persevere is to let light stream. Chasing the light, ever unyielding, The path to excellence, paved with every beam."</div>
             </div>
             <div class="card">
-                <div class="card-time">
-                    03
-                </div>
-                <div class="card-title">
-                    《客户端开发，构筑虚幻的织网》
-                </div>
-                <div class="card-passage">
-                    <br>
-                    
-游戏世界，代码织就，
-停顿处，程序沉寂；
-奋进中，键声如歌，
-攀登技术之巅，步步生辉。
-
-                    <br>
-                    <br>
-                    
-"In the realm of game clients, woven with code,
-At rest, the program falls silent;
-In pursuit, keystrokes sing like a ode,
-Ascending the peak of tech, each step gleams with light."
-
-                </div>
+                <div class="card-time">03</div>
+                <div class="card-title">《客户端开发，构筑虚幻的织网》</div>
+                <div class="card-passage"><br>游戏世界，代码织就，停顿处，程序沉寂；奋进中，键声如歌，攀登技术之巅，步步生辉。<br><br>"In the realm of game clients, woven with code, At rest, the program falls silent; In pursuit, keystrokes sing like a ode, Ascending the peak of tech, each step gleams with light."</div>
             </div>
             <div class="card">
-                <div class="card-time">
-                    04
-                </div>
-                <div class="card-title">
-                    《战斗策划，成就璀璨的星魂》
-                </div>
-                <div class="card-passage">
-                    <br>
-                    
-战斗策划，游戏之魂，
-退缩即战略的荒芜；
-坚持则每一战，体验升华，
-通往胜利的阶梯，步步精心铸。
-
-                    <br>
-                    <br>
-                    
-"Battle design, the soul of gaming,
-To retreat is the desert of strategy;
-To persevere, each encounter refined,
-The staircase to victory, each step carefully cast."
-
-                </div>
+                <div class="card-time">04</div>
+                <div class="card-title">《战斗策划，成就璀璨的星魂》</div>
+                <div class="card-passage"><br>战斗策划，游戏之魂，退缩即战略的荒芜；坚持则每一战，体验升华，通往胜利的阶梯，步步精心铸。<br><br>"Battle design, the soul of gaming, To retreat is the desert of strategy; To persevere, each encounter refined, The staircase to victory, each step carefully cast."</div>
             </div>
         </div>
 

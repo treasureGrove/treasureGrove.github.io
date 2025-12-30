@@ -1,5 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝藏小树林，游戏作品网站！- 个人简介</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="images/Icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/myselfIntroduction.css">
+</head>
+<body>
+    <div class="topMenu">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">加载中…</div>
+        </div>
+        <div class="left-contanier"><img class="left" src="images/tree.png"><div id="logo-title">宝藏小树林<img src="images/page-bg.png"></img></div></img></div>
+        <ul class="center">
+            <li><a onclick="loading.in('index.html')" class="productionCenter"><img class="left-p" src="images/menu-l.png"></img>视频展示<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('introduction.html')" class="waysIntroduction"><img class="left-p" src="images/menu-l.png"></img>方向展望<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('gameFeatures.html')" class="gameFeature"><img class="left-p" src="images/menu-l.png"></img>游戏哲学<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('photoRecord.html')" class="photoRecord"><img class="left-p" src="images/menu-l.png"></img>作品记录<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('myselfIntroduction.html')" class="myselfIntroduction"><img class="left-p" src="images/menu-l.png"></img>个人简介<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('titleShow.html')" class="titleShow"><img class="left-p" src="images/menu-l.png"></img>实用工具<img class="right-p" src="images/menu-l.png"></img></a></li>
+        </ul>
+        <script src="js/fakeTransition.js"></script>
+        <img class="right" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()">
+            <audio src="music/Ayase,初音ミク - フィクションブルー.mp3" id="music" autoplay="autoplay" style="cursor: pointer;"></audio>
+            <script src="js/titlemusic.js"></script>
+        </img>
+        <img id="right-share" src="images/share.png">
+        </img>
+        <div id="share-panel" class="shareThisWeb">
+            <p>分享链接：</p>
+            <input type="text" value="https://treasuregrove.github.io/myselfIntroduction.html" readonly style="width: 220px;">
+            <button onclick="copyLink()">复制链接</button>
+        </div>
+    </div>
+    <img class="main_body_bg" src="images/SelfIntroduction.jpg">
+    </img>
+    <canvas id="canvas"></canvas>
+    <script src="js/codeRain.js"></script>
+    <div class="shell">
+        <img src="images/headPhoto.jpg" alt="" class="cover">
+        <div class="head">
+            <div class="data">
+                <div class="title1">宝藏小树林<span>BILIBILI</span></div>
+                <div class="title2">
+                    游戏开发爱好者&nbsp;&nbsp;&nbsp;邮箱：2022110287@stu.hit.edu.cn&nbsp;&nbsp;&nbsp;电话：13550217094 <br>
+                    b站：https://space.bilibili.com/277780873</div>
+                <div class="title3">世界就像一片精致的小树林，
+                    <br>只要细心探索就能发现无限宝藏。
+                    <br>
+                    <br>
+                    The world is like a delicate grove,
+                    <br>with unlimited treasures to be found as long as you explore it carefully.
+                </div>
+            </div>
+            <div class="foot">
+                <div class="tags">
+                    <span class="tag">#Unity</span>
+                    <span class="tag">#Blender</span>
+                    <span class="tag">#Shader</span>
+                    <span class="tag">#C</span>
+                    <span class="tag">#JS</span>
+                    <span class="tag">#UE蓝图</span>
+                    <span class="tag">#ArkTs</span>
+                    <span class="tag">#C++</span>
+                    <span class="tag">#PS</span>
+                    <span class="tag">#MMD</span>
+                    <span class="tag">#CSS</span>
+                    <span class="tag">#HTML</span>
+                </div>
+            </div>
+        </div>
+        <div class="mainText">
+            <div class="title">意向岗位</div>
+            <div class="mainbodyText">
+                技术策划，技术美术，游戏客户端
+            </div>
+            <div class="title">教育经历</div>
+            <div class="mainbodyText">
+                2022.8-2026.8 <br> 哈尔滨工业大学
+                数字媒体艺术 | 本科
+                <br>
+                哈尔滨工业大学（校本部）
+                <br>
+                •专业： 数字媒体艺术专业着重学习数字媒体制作、设计和创意方面的课程，深化对数字艺术创作的理解。
+                <br>
+                •辅修： 市场营销学强化市场分析、品牌管理和营销策略的知识，融合数字媒体与市场营销的跨学科背景。
+                <br>
+                •理科生：擅长逻辑数理思维，喜欢用技术的方式进行艺术表达
+            </div>
+            <div class="title">项目经历</div>
+            <div class="mainbodyText">
+                2022.8-2023.6
+                <br>
+                基于unity的虚拟传统文化展会——《持经达变》
+                <br>
+                <br>
+                职位：大创项目组组长
+                <br>
+                项目内容：我们做了一款浏览展馆的小游戏，你可以通过与展品之间的交互来体验沉浸式的展馆体验。
+                <br>
+                项目工作：我在项目中承担场景搭建，交互代码编写，shader编写，3d模型构建，客户端打包。
+                <br>
+                项目成果：我们的项目在校内获得优秀项目一等奖，并且投了3d大赛，获得省赛特等奖以及国赛三等奖。
+                <br>
+                具体展示页面https://3dshow.3ddl.net/app/dnntdt
+            </div>
+            <div class="mainbodyText">
+                2023.8-2024.9
+                <br>
+                unity 格斗游戏《维纸之旅》
+                <br>
+                <br>
+                职位：程序员、特效制作
+                <br>
+                这个项目是个小型rpg游戏，在这中间主要实现了战斗框架的搭建，包括连招、格挡、武器、索敌等，利用BehaviorTree进行boss和敌人的行为树的搭建，利用射线检测实现变纸片人贴墙转2d的功能，利用timeline制作角色连招演出效果和打击特效。和2d场景对话系统搭建，演出效果制作。
+                <br>
+                具体展示页面https：//www.bilibili.com/video/BV1Ky411B74p
+            </div>
+            <div class="mainbodyText">
+                2023.8-2024.6
+                <br>
+                unity数学游览解密游戏《数游古境》
+                <br>
+                <br>
+                职位：程序员、特效制作
+                <br>
+                这是一个数学主题的解密游戏，玩家需要通过收集失落的古籍最终完成试炼。在这个项目中我负责程序，特效，渲染的工作，我搭建了UI系统，对话系统，交互系统，战斗系统，利用鼠标射线检测制作了类似于战棋的鸡兔同笼小游戏。用ase实现了打击特效的制作和云雾的制作。
+                <br>
+                具体展示页面https：//www.bilibili.com/video/BV1GW421d7XQ/
+            </div>
+            <div class="mainbodyText">
+                2024.2-2024.2
+                <br>
+                GlobalGameJam猫猫家具马戏团
+                <br>
+                <br>
+                职位：美术
+                <br>
+                在 Global Game Jam 的 48 小时游戏制作中 ，作为美工 ，我负责了背景绘制、 UI 制作和特效创作。具体工作包括绘制详细 背景图像、创建 UI 元素、实现 UI 交互效果、制作游戏内视觉特效和动画。
+                <br>
+                具体展示页面https：//www.bilibili.com/video/BV1MN4y1n7fx/
+            </div>
+            <div class="mainbodyText">
+                2024.1-2024.2
+                <br>
+                unity小游戏维护
+                <br>
+                <br>
+                职位：程序员
+                <br>
+                这是一个数学主题的解密游戏，玩家需要通过收集失落的古籍最终完成试炼。在这个项目中我负责程序，特效，渲染的工作，我搭建了UI系统，对话系统，交互系统，战斗系统，利用鼠标射线检测制作了类似于战棋的鸡兔同笼小游戏。用ase实现了打击特效的制作和云雾的制作。
+                <br>
+                具体展示页面https：//www.bilibili.com/video/BV1MN4y1n7fx/
+            </div>
+            <div class="title">自我评价</div>
+            <div class="mainbodyText">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                我是一个对游戏行业充满热情的青年，具备扎实的执行力。一旦有好的想法，我会主动学习相关技能，并将其付诸实践。我独立完成过多个游戏项目，深入研究了3D美术、2D绘画、Shader编程和游戏客户端编程蓝图等多个领域。在这个过程中，我不仅享受到了制作游戏的成就感，也体会到了不同游戏类型带来的乐趣。
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                在设计类学生中，我脱颖而出的地方在于我在代码逻辑方面的强大能力。我不仅能够理解和应用创造性的设计概念，还能够将它们转化为实际可行的技术解决方案。这让我在数字媒体领域中既能够贡献独特的创意，又能够以程序员的眼光审视艺术作品。
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在美术方面，我具备一定的功底，曾参加美术联考，并在业余时间进行素描和色彩绘画，并时常用电脑制作MMD舞蹈视屏，以此陶冶情操。
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，我密切关注游戏开发领域的最新技术，勇于尝试创新方法，包括一些教程稀少的方法，我积极的复刻实践，并将其融入自己的工作流程。我对优化工作流程充满热情，不断提升自己的专业技能。
+            </div>
+            <div class="title">相关技能</div>
+            <div class="mainbodyText">
+                DDC工具：
+                <br>
+                • 3D方面熟练掌握 Blender、ZBrush 、Maya和Cinema 4D ，具备丰富的 3D 建模、雕刻和动画制作经验能够快速有效地创建高质量的三维模型，包括角色、场景和物体。
+                平面设计:。拥有很强的渲染能力，MMD渲染经验丰富。详见我的B站主页https://space.bilibili.com/277780
+                <br>
+                • 平面方面熟练使用 Adobe Photoshop（ Ps）
+                对板式设计有着丰富经验，对游戏内容抠图也有自己的理解，经常使用AI绘图来制作游戏的UI，并且时常使用PS来绘制特效贴图，以便于将特效通过shader实现出来。
+                <br>
+                <br>
+                游戏引擎:
+                <br>
+                • 精通 Unreal Engine (UE)的蓝图编程和Unity游戏引擎的C#编程
+                能够进行游戏开发和虚拟场景的构建，同时熟练掌握其中封装好的工具，包括timeline、状态机、行为树、UI系统和一些自带的常用插件。在游戏引擎中有丰富的实际项目经验
+                包括角色控制、物理引擎、战棋系统、UI和动画系统的实现。
+                <br>
+                <br>
+                网页设计：
+                • 精通 html ，css，js ，能够进行动效网页制作和网页前端开发。
+                • 在网页制作中 ，具有独特审美 ，能够做出引人瞩目的网页动效设计。
+                <br>
+                <br>
+                跨学科整合:
+                • 能够将 3D 设计和平面设计有机地整合到项目中 ，创造统一且引人入胜的视觉体验。
+                • 在游戏开发中 ，通过技术与设计的有机结合 ，提供全方位的视觉和交互体验。 团队协作与沟通:
+                • 在多个项目中担任团队成员 ，并与程序员、艺术家和设计师密切合作。
+                • 出色的沟通能力 ，能够清晰表达设计理念 ，有效传达与团队成员的合作需求。 学习与适应能力:
+                • 对新技术和软件保持敏锐的兴趣 ，具备快速学习和适应新工具的能力。
+                • 始终关注行业趋势 ，努力保持在数字设计和游戏开发领域的领先地位。
+                <br>
+                团队协作与沟通:
+                <br>
+                •在多个项目中担任团队成员，并与程序员、艺术家和设计师密切合作。
+                <br>
+                •出色的沟通能力，能够清晰表达设计理念，有效传达与团队成员的合作需求。
+                <br>
+                学习与适应能力:
+                <br>
+                •对新技术和软件保持敏锐的兴趣，具备快速学习和适应新工具的能力。
+                <br>
+                •始终关注行业趋势，努力保持在数字设计和游戏开发领域的领先地位。
+
+            </div>
+            <div class="title">相关荣誉</div>
+            <div class="mainbodyText">
+                3d大赛省赛特等奖、大学英语四级、大一年度项目优秀项目一等奖、计算设计大赛省一国二
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -14,21 +237,19 @@
 
     <div class="topMenu">
         <div class="loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">加载中…</div>
         </div>
         <div class="left-contanier"><img class="left" src="images/tree.png">
             <div id="logo-title">宝藏小树林<img src="images/page-bg.png"></img></div></img>
         </div>
         <ul class="center">
-            <li><a onclick="loading.in('index.html')" class="productionCenter"><img class="left-p"
-                        src="images/menu-l.png"></img>视频展示<img class="right-p" src="images/menu-l.png"></img></a></li>
-            <li><a onclick="loading.in('introduction.html')" class="waysIntroduction"><img class="left-p"
-                        src="images/menu-l.png"></img>方向展望<img class="right-p" src="images/menu-l.png"></img></a></li>
-            <li><a onclick="loading.in('gameFeatures.html')" class="gameFeature"><img class="left-p"
-                        src="images/menu-l.png"></img>游戏哲学<img class="right-p" src="images/menu-l.png"></img></a></li>
-            <li><a onclick="loading.in('photoRecord.html')" class="photoRecord"><img class="left-p"
-                        src="images/menu-l.png"></img>作品记录<img class="right-p" src="images/menu-l.png"></img></a></li>
-            <li><a onclick="loading.in('myselfIntroduction.html')" class="myselfIntroduction"><img class="left-p"
-                        src="images/menu-l.png"></img>个人简介<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('index.html')" class="productionCenter"><img class="left-p" src="images/menu-l.png"></img>视频展示<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('introduction.html')" class="waysIntroduction"><img class="left-p" src="images/menu-l.png"></img>方向展望<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('gameFeatures.html')" class="gameFeature"><img class="left-p" src="images/menu-l.png"></img>游戏哲学<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('photoRecord.html')" class="photoRecord"><img class="left-p" src="images/menu-l.png"></img>作品记录<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('myselfIntroduction.html')" class="myselfIntroduction"><img class="left-p" src="images/menu-l.png"></img>个人简介<img class="right-p" src="images/menu-l.png"></img></a></li>
+            <li><a onclick="loading.in('titleShow.html')" class="titleShow"><img class="left-p" src="images/menu-l.png"></img>实用工具<img class="right-p" src="images/menu-l.png"></img></a></li>
         </ul>
         <script src="js/fakeTransition.js"></script>
         <img class="right" src="images/musicPlay.png" alt="playMusic" loop="loop" onclick="changeState()">
