@@ -89,45 +89,33 @@
     font-size: 24px;
     font-weight: 500;
 }
+
 #clock {
-    width: 38vw;
-    height: 38vw;
-    max-width: 90vh;
-    max-height: 90vh;
-    min-width: 200px;
-    min-height: 200px;
+    height: 130%;
+    /* 纵横比为1:1 */
     aspect-ratio: 1 / 1;
     position: absolute;
-    right: 2vw;
-    top: 2vw;
+    right: -28%;
+    top: -15%;
     border-radius: 50%;
     background: url(../images/bg2.jpg);
-    background-size: cover;
     opacity: 0.8;
-    border: rgb(65, 65, 65) 2.5vw solid;
-    box-sizing: border-box;
-    z-index: 2;
+    border: rgb(65, 65, 65) 30px solid;
 }
 
-@media (max-width: 1000px) {
+@media(max-width:1000px) {
     #clock {
-        width: 70vw;
-        height: 70vw;
-        min-width: 120px;
-        min-height: 120px;
-        right: 2vw;
-        top: 2vw;
-        border-width: 4vw;
+        right: -90%;
     }
 }
 
 #clock-table {
-    width: 92%;
-    height: 92%;
+    width: 96%;
+    height: 96%;
     border-radius: 50%;
     position: absolute;
-    top: 4%;
-    left: 4%;
+    top: 2%;
+    left: 2%;
     transition: transform .8s ease-in-out;
 }
 
@@ -137,40 +125,30 @@
     border-radius: 50%;
     transform-origin: 50% 50%;
     position: absolute;
-    box-sizing: border-box;
 }
 
 .clock-thick {
     width: 6%;
-    height: 0.7vw;
-    min-height: 3px;
-    max-height: 10px;
-    background-color: #3d3d3d;
+    height: 6px;
+    background-color: #3b3b3b;
     position: absolute;
-    top: calc(50% - 0.35vw);
+    top: calc(50% - 3px);
     left: 0px;
-    border-radius: 2px;
 }
 
 .clock-thick span {
-    font-size: 3vw;
-    min-font-size: 16px;
-    max-font-size: 50px;
+    font-size: 50px;
     position: absolute;
     left: 140%;
-    top: calc(50% - 1.5vw);
+    top: calc(50% - 30px);
     color: #3d3d3d;
-    white-space: nowrap;
 }
 
 .clock-scale {
     width: 4%;
-    height: 0.3vw;
-    min-height: 1.5px;
-    max-height: 5px;
+    height: 2px;
     background-color: #727272;
     position: absolute;
-    top: calc(50% - 0.15vw);
+    top: calc(50% - .5px);
     left: 0px;
-    border-radius: 1px;
 }

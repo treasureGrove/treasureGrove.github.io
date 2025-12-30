@@ -7,11 +7,6 @@ function initializeShareFeature() {
 
     if (shareIcon && sharePanel) {
         shareIcon.addEventListener('mouseenter', () => {
-            // 每次显示时自动填入当前页面URL
-            const input = sharePanel.querySelector('input');
-            if (input) {
-                input.value = window.location.href;
-            }
             const rect = shareIcon.getBoundingClientRect();
             sharePanel.style.left = `${rect.left-160}px`;
             sharePanel.style.top = `${rect.bottom + window.scrollY}px`;
@@ -79,23 +74,8 @@ function exitVideo() {
 
 // 复制链接功能
 function copyLink() {
-    const sharePanel = document.getElementById('share-panel');
-    const input = sharePanel ? sharePanel.querySelector('input') : null;
-    if (input) {
-        // 现代浏览器优先使用Clipboard API
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(input.value).then(() => {
-                alert('链接已复制到剪贴板！');
-            }, () => {
-                // 失败时回退到旧方法
-                input.select();
-                document.execCommand('copy');
-                alert('链接已复制到剪贴板！');
-            });
-        } else {
-            input.select();
-            document.execCommand('copy');
-            alert('链接已复制到剪贴板！');
-        }
-    }
+    const input = sharePanel.querySelector('input');
+    input.select();
+    document.execCommand('copy');
+    alert('链接已复制到剪贴板！');
 }
