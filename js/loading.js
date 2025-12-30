@@ -1,15 +1,16 @@
+// Simplified loading helper — visual loading overlay removed.
+// Keep `loading.in(target)` and `loading.out()` APIs safe for existing onclicks.
 const loading = {
-    container: document.querySelector(".loading"),
     in(target) {
-        this.container.classList.remove("fade-out");
-        setTimeout(() => {
+        if (typeof target === 'string' && target) {
             window.location.href = target;
-        }, 400);
+        }
     },
     out() {
-        this.container.classList.add("fade-out");
+        /* no-op (no visual loading overlay) */
     }
 };
-window.addEventListener("load", () => {
-    loading.out();
+
+window.addEventListener('load', () => {
+    // no visual loading behavior required
 });
