@@ -1,5 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
     initializeShareFeature();
+    // restore music playback position and state if available
+    try {
+        const audio = document.getElementById('music');
+        if (audio) audio.preload = 'auto';
+        const savedTime = sessionStorage.getItem('__musicTime');
+        const savedPlaying = sessionStorage.getItem('__musicPlaying');
+        if (audio && savedTime !== null) {
+            const t = parseFloat(savedTime);
+            const resume = savedPlaying === '1';
+
+            const restore = () => {
+                try { audio.currentTime = Math.max(0, Math.min(t, (audio.duration || t))); } catch (e) {}
+
+                if (resume) {
+                    // play with muted volume then ramp up to avoid audible glitch
+                    try { audio.volume = 0; } catch (e) {}
+                    const p = audio.play();
+                    if (p && p.catch) p.catch(() => { try { audio.volume = 1; } catch (e) {} });
+
+                    const start = performance.now();
+                    const dur = 350;
+                    function ramp(now) {
+                        const elapsed = now - start;
+                        const v = Math.min(1, elapsed / dur);
+                        try { audio.volume = v; } catch (e) {}
+                        if (v < 1) requestAnimationFrame(ramp);
+                    }
+                    requestAnimationFrame(ramp);
+                }
+
+                sessionStorage.removeItem('__musicTime');
+                sessionStorage.removeItem('__musicPlaying');
+            };
+
+            if (audio.readyState >= 1) restore();
+            else audio.addEventListener('loadedmetadata', restore, { once: true });
+        }
+    } catch (e) {}
 });
 function initializeShareFeature() {
     const shareIcon = document.getElementById('right-share');
@@ -33,13 +71,13 @@ const bg = document.querySelector('.main_body_bg');
 let isPlaying = true;
 function playMusic() {
     music.play();
-    image1.src = "images/musicPlay.png";
+    image1.src = "https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/images/musicPlay.webp";
     isPlaying = true;
     console.log('Music playing');
 }
 function pauseMusic() {
     music.pause();
-    image1.src = "images/musicMute.png";
+    image1.src = "https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/images/musicMute.webp";
     isPlaying = false;
     console.log('Music paused');
 }
