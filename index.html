@@ -5,12 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>宝藏小树林，游戏作品网站！</title>
+    <style>
+        /* Prevent white flash before CSS loads */
+        html, body { background: #000; }
+        /* initial overlay shown until window load */
+        #initial-black-overlay { position: fixed; inset: 0; background: #000; z-index: 2147483646; transition: opacity 0.45s ease; }
+    </style>
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/images/Icon.ico" type="image/x-icon">
 </head>
 
 <body>
-
+    <div id="initial-black-overlay"></div>
+    <script>
+        (function(){
+            var ov = document.getElementById('initial-black-overlay');
+            function hide(){ if(!ov) return; ov.style.opacity='0'; setTimeout(function(){ if(ov && ov.parentNode) ov.parentNode.removeChild(ov); }, 500); }
+            if(document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
+        })();
+    </script>
     <div id="App">
         <div id="main_body">
             <div class="topMenu">
