@@ -12,9 +12,9 @@ for (var i = 0; i < items.length; i++) {
     var rightBox = frame.getElementsByClassName('right')[0];
     
     // 设置背景图片
-    frontBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
-    leftBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
-    rightBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
+    frontBox.style.backgroundImage = 'url(https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/gif/' + (i + 1).toString().padStart(2, '0') + '.webp)';
+    leftBox.style.backgroundImage = 'url(https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/gif/' + (i + 1).toString().padStart(2, '0') + '.webp)';
+    rightBox.style.backgroundImage = 'url(https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/gif/' + (i + 1).toString().padStart(2, '0') + '.webp)';
 }
 (function () {
     "use strict";
@@ -89,7 +89,7 @@ for (var i = 0; i < items.length; i++) {
         slider.style.transform = "translate3d(" + ((index * -width) + (width / 2) + window.innerWidth / 2) + "px, 0, 0)";
         // 设置body背景图片
         var frontBox = items[index - 1].getElementsByClassName('front')[0];
-        mainBg.style.backgroundImage = 'url(./upload/' + (index).toString().padStart(2, '0') + '.jpg)';
+        mainBg.style.backgroundImage = 'url(https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/' + (index).toString().padStart(2, '0') + '.webp)';
     }
     function timer() {
         // 定时器，自动切换shell
