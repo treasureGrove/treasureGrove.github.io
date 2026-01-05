@@ -3,6 +3,23 @@
     margin: 0;
     padding: 0;
 }
+
+/* Mobile overrides for photoRecord page */
+@media (max-width: 600px) {
+    .topMenu { flex-direction: column; align-items: stretch; padding: 8px; }
+    .left-contanier { position: relative; width: 100%; height: auto; display:flex; align-items:center; }
+    #logo-title { position: relative; left: 0; margin-left: 8px; font-size: 20px; }
+    .topMenu .center { display:flex; flex-wrap:wrap; justify-content:center; margin:8px 0; }
+    .topMenu .center li { width:auto; margin:4px; }
+    .shell, .shell_body, .button { width: 100% !important; box-sizing: border-box; padding: 8px !important; }
+    /* Mobile-specific slider fixes: keep slider scrollable and cap item sizes */
+    .shell_slider { margin-top: 6% !important; overflow-x: auto !important; white-space: nowrap; display: block; padding-bottom: 20px; }
+    .shell_slider .item { float: none !important; display: inline-block !important; transform: none !important; margin: 0 8px !important; vertical-align: top; }
+    .shell_slider .frame { width: 320px !important; height: auto !important; transform: none !important; position: relative !important; }
+    .shell_slider .box { position: static !important; width: 320px !important; height: auto !important; border: none !important; padding: 12px !important; box-shadow: none !important; }
+    .shell_slider h1, .shell_slider span { font-size: 20px !important; }
+    .prev, .next { display: none !important; }
+}
 #mainBodyBG {
     position: fixed;
     top: 0;
@@ -71,6 +88,12 @@
     transition: transform 1s ease-in-out;
     background: transparent;
 }
+
+/* Prevent the slider from causing page horizontal overflow on larger viewports */
+.shell_slider { max-width: 100%; overflow-x: hidden; }
+
+/* Ensure inline spans or headings inside slider wrap instead of forcing overflow */
+.shell_slider span, .shell_slider h1 { max-width: 100% !important; word-break: break-word; }
 
 .item {
     cursor: pointer;

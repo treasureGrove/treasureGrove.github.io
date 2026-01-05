@@ -10,6 +10,12 @@ body {
   align-items: center;
   background-size: cover;
 }
+
+/* Keep topMenu at the top when body is flex */
+.topMenu { align-self: flex-start; width: 100%; box-sizing: border-box; z-index: 1000; position: relative; }
+
+/* Ensure left container positioning matches global layout */
+.topMenu .left-contanier { position: absolute; top: 10px; left: 10px; }
 .main_body_bg {
   position: absolute;
   top: 0;
@@ -147,6 +153,18 @@ body {
   font-size: 30px;
   transition: transform 0.5s ease-in-out;
   text-shadow: 1px 1px 6px rgb(0, 0, 0);
+}
+
+/* Mobile overrides for gameFeatures page */
+@media (max-width: 600px) {
+  .topMenu { flex-direction: column; align-items: stretch; padding: 8px; }
+  .left-contanier { position: relative; width: 100%; height: auto; left: 0; top: 0; display:flex; align-items:center; }
+  #logo-title { position: relative; left: 0; top: 0; margin-left: 8px; font-size: 20px; }
+  .topMenu .center { display:flex; flex-wrap:wrap; justify-content:center; margin:8px 0; }
+  .topMenu .center li { width: auto; margin: 4px; }
+  .topMenu .center li a { padding: 8px 10px; font-size: 16px; }
+  .main_body_bg, .main, #main, #card-section, .card { width: 100% !important; height: auto !important; padding: 10px !important; box-sizing: border-box; }
+  .productVideo, video, img { max-width: 100%; height: auto; }
 }
 
 .card-small-title {

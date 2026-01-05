@@ -1,0 +1,230 @@
+{
+  "index.html": {
+    "desktop": {
+      "vw": 1366,
+      "vh": 768,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 1366,
+        "top": 0,
+        "bottom": 30,
+        "width": 1366,
+        "height": 30,
+        "outOfView": false
+      }
+    },
+    "mobile": {
+      "vw": 360,
+      "vh": 800,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 360,
+        "top": 0,
+        "bottom": 175,
+        "width": 360,
+        "height": 175,
+        "outOfView": false
+      }
+    }
+  },
+  "introduction.html": {
+    "desktop": {
+      "vw": 1366,
+      "vh": 768,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 1366,
+        "top": 0,
+        "bottom": 30,
+        "width": 1366,
+        "height": 30,
+        "outOfView": false
+      }
+    },
+    "mobile": {
+      "vw": 360,
+      "vh": 800,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 126.859375,
+        "top": 0,
+        "bottom": 785,
+        "width": 126.859375,
+        "height": 785,
+        "outOfView": false
+      }
+    }
+  },
+  "gameFeatures.html": {
+    "desktop": {
+      "vw": 1366,
+      "vh": 768,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 1366,
+        "top": 0,
+        "bottom": 30,
+        "width": 1366,
+        "height": 30,
+        "outOfView": false
+      }
+    },
+    "mobile": {
+      "vw": 360,
+      "vh": 800,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 360,
+        "top": 0,
+        "bottom": 140,
+        "width": 360,
+        "height": 140,
+        "outOfView": false
+      }
+    }
+  },
+  "photoRecord.html": {
+    "desktop": {
+      "vw": 1366,
+      "vh": 768,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 1366,
+        "top": 0,
+        "bottom": 30,
+        "width": 1366,
+        "height": 30,
+        "outOfView": false
+      }
+    },
+    "mobile": {
+      "vw": 360,
+      "vh": 800,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 360,
+        "top": 0,
+        "bottom": 175,
+        "width": 360,
+        "height": 175,
+        "outOfView": false
+      }
+    }
+  },
+  "myselfIntroduction.html": {
+    "desktop": {
+      "vw": 1366,
+      "vh": 768,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 1366,
+        "top": 0,
+        "bottom": 30,
+        "width": 1366,
+        "height": 30,
+        "outOfView": false
+      }
+    },
+    "mobile": {
+      "vw": 360,
+      "vh": 800,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 360,
+        "top": 0,
+        "bottom": 175,
+        "width": 360,
+        "height": 175,
+        "outOfView": false
+      }
+    }
+  },
+  "titleShow.html": {
+    "desktop": {
+      "vw": 1366,
+      "vh": 768,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 1366,
+        "top": 0,
+        "bottom": 30,
+        "width": 1366,
+        "height": 30,
+        "outOfView": false
+      }
+    },
+    "mobile": {
+      "vw": 360,
+      "vh": 800,
+      "horizOverflow": false,
+      "bodyOverflowX": "visible",
+      "docOverflowX": "visible",
+      "offenders": [],
+      "offendersCount": 0,
+      "topMenu": {
+        "left": 0,
+        "right": 360,
+        "top": 0,
+        "bottom": 175,
+        "width": 360,
+        "height": 175,
+        "outOfView": false
+      }
+    }
+  }
+}
