@@ -34,7 +34,7 @@ function move(){
     for(let i = 0; i < num; i++){
         let snow = snows[i];
         snow.y += snow.speed;
-        snow.x += snow.speed * 1.333; // 斜着飘，x方向移动是y方向的一半
+        snow.x += snow.speed * 1.333; 
         
         if(snow.y > h){
             snow.y = -10;
