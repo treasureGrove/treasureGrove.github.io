@@ -17,13 +17,7 @@
 
 <body>
     <div id="initial-black-overlay"></div>
-    <script>
-        (function(){
-            var ov = document.getElementById('initial-black-overlay');
-            function hide(){ if(!ov) return; ov.style.opacity='0'; setTimeout(function(){ if(ov && ov.parentNode) ov.parentNode.removeChild(ov); }, 500); }
-            if(document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
-        })();
-    </script>
+    <script src="js/preload-hide-overlay.js"></script>
     <div id="App">
         <div id="main_body">
             <div class="topMenu">
