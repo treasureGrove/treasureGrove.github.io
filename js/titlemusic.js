@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const audio = document.getElementById('music');
         if (audio) {
             audio.preload = 'auto';
+            audio.loop= true;
             
             // 如果用户之前已经交互过，直接取消静音
             if (hasUserInteracted) {
