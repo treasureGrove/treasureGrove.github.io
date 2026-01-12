@@ -1,9 +1,47 @@
 var items = document.getElementsByClassName('item');
 var pages=document.getElementsByClassName('previewOnlinePage');
 const mainBg = document.getElementById('mainBodyBG')
-// 循环遍历每个item
+
+const imageCache = new Map();
+const preloadQueue = [];
+
+function preloadImage(url) {
+    return new Promise((resolve, reject) => {
+        if (imageCache.has(url)) {
+            resolve(url);
+            return;
+        }
+        
+        const img = new Image();
+        img.onload = () => {
+            imageCache.set(url, true);
+            resolve(url);
+        };
+        img.onerror = () => {
+            reject(url);
+        };
+        img.src = url;
+    });
+}
+
+function preloadImagesAsync(urls, priority = false) {
+    if (priority) {
+        urls.forEach(url => preloadImage(url));
+    } else {
+        preloadQueue.push(...urls);
+    }
+}
+
+function processPreloadQueue() {
+    if (preloadQueue.length === 0) return;
+    
+    const url = preloadQueue.shift();
+    preloadImage(url).finally(() => {
+        setTimeout(processPreloadQueue, 200);
+    });
+}
+
 for (var i = 0; i < items.length; i++) {
-    // 获取当前item
     var item = items[i];
    
     var frame = item.getElementsByClassName('frame')[0];
@@ -11,11 +49,25 @@ for (var i = 0; i < items.length; i++) {
     var leftBox = frame.getElementsByClassName('left')[0];
     var rightBox = frame.getElementsByClassName('right')[0];
     
-    // 设置背景图片
-    frontBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
-    leftBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
-    rightBox.style.backgroundImage = 'url(./upload/gif/' + (i + 1).toString().padStart(2, '0') + '.gif)';
+    const imageUrl = 'https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/gif/' + (i + 1).toString().padStart(2, '0') + '.webp';
+    const bgImageUrl = 'https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/' + (i + 1).toString().padStart(2, '0') + '.webp';
+    
+    frontBox.style.backgroundImage = 'url(' + imageUrl + ')';
+    leftBox.style.backgroundImage = 'url(' + imageUrl + ')';
+    rightBox.style.backgroundImage = 'url(' + imageUrl + ')';
+    
+    if (i < 3) {
+        preloadImagesAsync([imageUrl, bgImageUrl], true);
+    } else {
+        preloadImagesAsync([imageUrl, bgImageUrl], false);
+    }
 }
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        processPreloadQueue();
+    }, 1000); 
+});
 (function () {
     "use strict";
     var shell = document.getElementsByClassName('shell')[0];
@@ -25,95 +77,103 @@ for (var i = 0; i < items.length; i++) {
     var prevBtn = shell.getElementsByClassName('prev')[0];
     var nextBtn = shell.getElementsByClassName('next')[0];
     var previewBtn = shell.getElementsByClassName('preview')[0];
-    // 定义变量
+
     var width, height, totalWidth, margin = 20,
         currIndex = 0,
         interval, intervalTime = 20000;
+        
     function init() {
-        // 初始化函数
         resize();
+        initTransitions();
         move(Math.floor(items.length / 2));
         bindEvents();
         bindItemClickEvents();
         timer();
     }
+    
+    function initTransitions() {
+        for (var i = 0; i < items.length; i++) {
+            let item = items[i];
+            let box = item.getElementsByClassName('frame')[0];
+            item.style.transition = 'opacity 0.6s ease, z-index 0s';
+            box.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        }
+        slider.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    
     function resize() {
-        // 窗口大小变化时调整大小
         width = Math.max(window.innerWidth * .3, 275);
         height = window.innerHeight * .5;
         totalWidth = width * items.length;
-        // 设置slider宽度
         slider.style.width = totalWidth + "px";
-        // 设置每个item的宽度和高度
         for (var i = 0; i < items.length; i++) {
             let item = items[i];
             item.style.width = (width - (margin * 2)) + "px";
             item.style.height = height + "px";
         }
-
     }
+    
     function bindEvents() {
-        // 窗口大小变化时调整大小
         window.onresize = resize;
-        // 点击prev按钮切换item
         prevBtn.addEventListener('click', () => { prev(); });
         nextBtn.addEventListener('click', () => { next(); });
         previewBtn.addEventListener('click',()=>{previewCurrentPage()});
-
     }
+    
     function move(index) {
-        // 移动shell到指定的item
         if (index < 1) index = items.length;
         if (index > items.length) index = 1;
         currIndex = index;
-        // 遍历所有item
+        
         for (var i = 0; i < items.length; i++) {
             let item = items[i],
                 box = item.getElementsByClassName('frame')[0];
             item.style.opacity = "0.4";
             item.style.zIndex = "1";
             if (i == (index - 1)) {
-                // 当前item添加active类并设置3D效果
                 item.classList.add('item--active');
                 item.style.opacity = "1";
                 item.style.zIndex = "999";
                 box.style.transform = "perspective(1200px)";
             } else {
-                // 其他item移除active类并设置3D效果
                 item.classList.remove('item--active');
                 box.style.transform = "perspective(1200px) rotateY(" + (i < (index - 1) ? 40 : -40) + "deg)";
             }
         }
-        // 移动slider
 
         slider.style.transform = "translate3d(" + ((index * -width) + (width / 2) + window.innerWidth / 2) + "px, 0, 0)";
-        // 设置body背景图片
-        var frontBox = items[index - 1].getElementsByClassName('front')[0];
-        mainBg.style.backgroundImage = 'url(./upload/' + (index).toString().padStart(2, '0') + '.jpg)';
+        
+        const newBgUrl = 'https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/upload/' + (index).toString().padStart(2, '0') + '.webp';
+        
+        const img = new Image();
+        img.onload = () => {
+            mainBg.style.backgroundImage = 'url(' + newBgUrl + ')';
+        };
+        img.src = newBgUrl;
     }
+    
     function timer() {
-        // 定时器，自动切换shell
         clearInterval(interval);
         interval = setInterval(() => {
             move(++currIndex);
         }, intervalTime);
     }
-    // 切换item
+
     function prev() {
         move(--currIndex);
         timer();
     }
+    
     function next() {
         move(++currIndex);
         timer();
     }
+    
     function previewCurrentPage() {
         window.open("https://"+pages[currIndex-1].innerHTML, "_blank" );
-
-        console.log(pages[currIndex-1].innerHTML);
     }
+    
     function bindItemClickEvents() {
-        // 为每个item绑定点击事件
         for (var i = 0; i < items.length; i++) {
             items[i].addEventListener('click', function (i) {
                 return function () {

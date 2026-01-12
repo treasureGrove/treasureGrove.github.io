@@ -82,7 +82,7 @@ body {
 }
 
 .drawer-btn.active {
-  background: url(../images/booking-bg.jpg);
+  background: url(https://blog-image-1316340567.cos.ap-shanghai.myqcloud.com/blog/images/booking-bg.webp);
   opacity: 0.7;
   background-size: cover;
   color: rgb(14, 58, 205);
