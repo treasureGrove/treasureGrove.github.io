@@ -75,6 +75,22 @@
         <p>这里是新加的 Title Show 页面内容。</p>
     </div>
 
+    <div class="titleShow-content" style="margin-top:18px;">
+        <h2 style="color:#fff;">XMind 棰勮</h2>
+        <div id="XmindViewer" style="background:rgba(0,0,0,0.6); padding:12px; border-radius:6px; color:#fff; max-height:520px; overflow:hidden;">
+        </div>
+    </div>
+
+    <script src="js/xmindPreviewer.js"></script>
+    <script>
+        (function () {
+            try {
+                XmindPreviewer.init('XmindViewer');
+                XmindPreviewer.load(encodeURI('xmind/TA绗旇.xmind'));
+            } catch (e) { console.warn(e); }
+        })();
+    </script>
+
 </body>
 
 </html>
