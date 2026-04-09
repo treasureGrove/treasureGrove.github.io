@@ -57,16 +57,47 @@ function initializeShareFeature() {
     const shareIcon = document.getElementById('right-share');
     const sharePanel = document.getElementById('share-panel');
     if (shareIcon && sharePanel) {
-        shareIcon.addEventListener('mouseenter', () => {
-            const rect = shareIcon.getBoundingClientRect();
-            sharePanel.style.left = `${rect.left-160}px`;
-            sharePanel.style.top = `${rect.bottom + window.scrollY}px`;
-            sharePanel.style.display = 'block';
-        });
-        shareIcon.addEventListener('mouseleave', () => {
-            setTimeout(() => {
+        // 触屏设备用点击切换
+        shareIcon.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (sharePanel.style.display === 'block') {
                 sharePanel.style.display = 'none';
-            }, 1500);
+            } else {
+                var rect = shareIcon.getBoundingClientRect();
+                // 移动端居中显示
+                if (window.innerWidth <= 768) {
+                    sharePanel.style.left = '7.5%';
+                    sharePanel.style.top = (rect.bottom + 10) + 'px';
+                    sharePanel.style.width = '85%';
+                    sharePanel.style.position = 'fixed';
+                } else {
+                    sharePanel.style.left = (rect.left - 160) + 'px';
+                    sharePanel.style.top = (rect.bottom + window.scrollY) + 'px';
+                }
+                sharePanel.style.display = 'block';
+            }
+        });
+        // 桌面端保留hover行为
+        shareIcon.addEventListener('mouseenter', function () {
+            if (window.innerWidth > 768) {
+                var rect = shareIcon.getBoundingClientRect();
+                sharePanel.style.left = (rect.left - 160) + 'px';
+                sharePanel.style.top = (rect.bottom + window.scrollY) + 'px';
+                sharePanel.style.display = 'block';
+            }
+        });
+        shareIcon.addEventListener('mouseleave', function () {
+            if (window.innerWidth > 768) {
+                setTimeout(function () {
+                    sharePanel.style.display = 'none';
+                }, 1500);
+            }
+        });
+        // 点击面板外关闭
+        document.addEventListener('click', function (e) {
+            if (!shareIcon.contains(e.target) && !sharePanel.contains(e.target)) {
+                sharePanel.style.display = 'none';
+            }
         });
     }
 }
@@ -145,8 +176,22 @@ function exitVideo() {
 }
 
 function copyLink() {
-    const input = sharePanel.querySelector('input');
+    var panel = document.getElementById('share-panel');
+    var input = panel ? panel.querySelector('input') : null;
+    if (!input) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(input.value).then(function () {
+            alert('链接已复制到剪贴板！');
+        }).catch(function () {
+            fallbackCopy(input);
+        });
+    } else {
+        fallbackCopy(input);
+    }
+}
+function fallbackCopy(input) {
     input.select();
+    input.setSelectionRange(0, 99999);
     document.execCommand('copy');
     alert('链接已复制到剪贴板！');
 }

@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -168,4 +168,82 @@
     border-right-width: 5px;
     transform: translate3d(-1px, 0, -60px) rotateY(90deg);
     transform-origin: 100%;
+}
+
+
+/* ========== 移动端适配 ========== */
+@media (max-width: 768px) {
+    /* 背景居中 */
+    #mainBodyBG {
+        background-position: center center;
+    }
+
+    .shell_body {
+        transform: none;
+        padding: 0;
+        padding-top: calc(25vh - 44px);
+        width: 100%;
+        height: calc(100vh - 88px);
+        margin-top: 88px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .shell_slider {
+        margin-top: 0;
+        position: relative;
+    }
+
+    /* 卡片项：margin须与JS的margin=20一致 */
+    .item {
+        margin: 0 20px;
+        transform: translate(0);
+    }
+    .frame { width: 100%; }
+    .frame:after { display: none; }
+
+    /* 卡片内容 */
+    .box { border-width: 2px; }
+    .box h1 { font-size: 32px; }
+    .box span {
+        font-size: 11px;
+        bottom: 8px;
+        padding: 0 12px;
+        text-align: center;
+    }
+
+    /* 隐藏3D侧面 */
+    .box.left, .box.right { display: none; }
+
+    /* 按钮控制区域 */
+    .button {
+        width: 80%;
+        max-width: 300px;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 30px;
+    }
+    .prev i, .next i { font-size: 40px; }
+    .preview {
+        font-size: 18px;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .shell_body { height: calc(100vh - 78px); margin-top: 78px; padding-top: calc(25vh - 39px); }
+    .button { width: 90%; padding: 8px 16px; }
+    .prev i, .next i { font-size: 30px; }
+    .preview { font-size: 16px; padding: 6px 12px; }
+    .box h1 { font-size: 24px; }
+    .box span { font-size: 10px; padding: 0 8px; }
 }

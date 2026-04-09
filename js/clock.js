@@ -72,3 +72,24 @@ function clockRotate(degree) {
     // 根据角度旋转时钟表盘
     clock.style.transform = `rotate(${degree}deg)`;
 }
+
+// 触屏滑动支持（上下滑动切换卡片）
+(function () {
+    var touchStartY = 0;
+    var content = document.getElementById('content');
+    if (!content) return;
+    content.addEventListener('touchstart', function (e) {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    content.addEventListener('touchend', function (e) {
+        var touchEndY = e.changedTouches[0].screenY;
+        var diff = touchStartY - touchEndY;
+        if (Math.abs(diff) > 40) {
+            if (diff > 0) {
+                slideToNext();
+            } else {
+                slideToPrev();
+            }
+        }
+    }, { passive: true });
+})();

@@ -102,7 +102,7 @@ window.addEventListener('load', () => {
     }
     
     function resize() {
-        width = Math.max(window.innerWidth * .3, 275);
+        width = Math.max(window.innerWidth <= 768 ? window.innerWidth * .6 : window.innerWidth * .3, 275);
         height = window.innerHeight * .5;
         totalWidth = width * items.length;
         slider.style.width = totalWidth + "px";
@@ -115,15 +115,35 @@ window.addEventListener('load', () => {
     
     function bindEvents() {
         window.onresize = resize;
-        prevBtn.addEventListener('click', () => { prev(); });
-        nextBtn.addEventListener('click', () => { next(); });
-        previewBtn.addEventListener('click',()=>{previewCurrentPage()});
+        prevBtn.addEventListener('click', function () { prev(); });
+        nextBtn.addEventListener('click', function () { next(); });
+        previewBtn.addEventListener('click', function () { previewCurrentPage(); });
+
+        // 触屏滑动支持
+        var touchStartX = 0;
+        var touchEndX = 0;
+        shell.addEventListener('touchstart', function (e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        shell.addEventListener('touchend', function (e) {
+            touchEndX = e.changedTouches[0].screenX;
+            var diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    next();
+                } else {
+                    prev();
+                }
+            }
+        }, { passive: true });
     }
     
     function move(index) {
         if (index < 1) index = items.length;
         if (index > items.length) index = 1;
         currIndex = index;
+        
+        var isMobile = window.innerWidth <= 768;
         
         for (var i = 0; i < items.length; i++) {
             let item = items[i],
@@ -137,7 +157,8 @@ window.addEventListener('load', () => {
                 box.style.transform = "perspective(1200px)";
             } else {
                 item.classList.remove('item--active');
-                box.style.transform = "perspective(1200px) rotateY(" + (i < (index - 1) ? 40 : -40) + "deg)";
+                var angle = isMobile ? 30 : 40;
+                box.style.transform = "perspective(1200px) rotateY(" + (i < (index - 1) ? angle : -angle) + "deg)";
             }
         }
 

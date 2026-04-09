@@ -19,3 +19,39 @@
     font-size: 1.2rem;
     line-height: 1.8;
 }
+
+/* ========== “∆∂Ø∂À  ≈‰ ========== */
+@media (max-width: 768px) {
+    .titleShow-content {
+        margin: 80px 20px 0 20px;
+        padding: 32px 20px;
+        max-width: 100%;
+    }
+    
+    .titleShow-content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 16px;
+    }
+    
+    .titleShow-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 480px) {
+    .titleShow-content {
+        margin: 70px 15px 0 15px;
+        padding: 24px 16px;
+    }
+    
+    .titleShow-content h1 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .titleShow-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}

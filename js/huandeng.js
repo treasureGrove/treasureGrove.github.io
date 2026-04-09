@@ -65,3 +65,26 @@
     }, 3000); // 每隔 3 秒自动切换幻灯片 
   }
 
+  // 触屏滑动支持（上下滑动切换卡片）
+  (function () {
+    var touchStartY = 0;
+    var cardSection = document.querySelector("#card-section") || document.querySelector("#slide-section");
+    if (!cardSection) return;
+    cardSection.addEventListener('touchstart', function (e) {
+      touchStartY = e.changedTouches[0].screenY;
+      clearInterval(intervalID);
+    }, { passive: true });
+    cardSection.addEventListener('touchend', function (e) {
+      var touchEndY = e.changedTouches[0].screenY;
+      var diff = touchStartY - touchEndY;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0 && chosenSlideNumber < 4) {
+          slideTo(chosenSlideNumber + 1);
+        } else if (diff < 0 && chosenSlideNumber > 1) {
+          slideTo(chosenSlideNumber - 1);
+        }
+      }
+      startSlide();
+    }, { passive: true });
+  })();
+
