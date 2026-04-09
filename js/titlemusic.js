@@ -57,48 +57,65 @@ function initializeShareFeature() {
     const shareIcon = document.getElementById('right-share');
     const sharePanel = document.getElementById('share-panel');
     if (shareIcon && sharePanel) {
-        // 触屏设备用点击切换
+        var hideTimer = null;
+        // 移动端：将面板移到body下，避免父元素backdrop-filter破坏fixed定位
+        if (window.innerWidth <= 768) {
+            document.body.appendChild(sharePanel);
+        }
+
+        function showPanel() {
+            if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+            if (window.innerWidth > 768) {
+                var rect = shareIcon.getBoundingClientRect();
+                sharePanel.style.position = 'absolute';
+                sharePanel.style.left = (rect.left - 160) + 'px';
+                sharePanel.style.top = (rect.bottom + window.scrollY) + 'px';
+                sharePanel.style.transform = '';
+                sharePanel.style.width = '';
+            }
+            sharePanel.style.display = 'block';
+        }
+
+        function hidePanel() {
+            sharePanel.style.display = 'none';
+        }
+
         shareIcon.addEventListener('click', function (e) {
             e.stopPropagation();
             if (sharePanel.style.display === 'block') {
-                sharePanel.style.display = 'none';
+                hidePanel();
             } else {
-                var rect = shareIcon.getBoundingClientRect();
-                // 移动端居中显示
-                if (window.innerWidth <= 768) {
-                    sharePanel.style.left = '7.5%';
-                    sharePanel.style.top = (rect.bottom + 10) + 'px';
-                    sharePanel.style.width = '85%';
-                    sharePanel.style.position = 'fixed';
-                } else {
-                    sharePanel.style.left = (rect.left - 160) + 'px';
-                    sharePanel.style.top = (rect.bottom + window.scrollY) + 'px';
-                }
-                sharePanel.style.display = 'block';
+                showPanel();
             }
         });
-        // 桌面端保留hover行为
+
         shareIcon.addEventListener('mouseenter', function () {
-            if (window.innerWidth > 768) {
-                var rect = shareIcon.getBoundingClientRect();
-                sharePanel.style.left = (rect.left - 160) + 'px';
-                sharePanel.style.top = (rect.bottom + window.scrollY) + 'px';
-                sharePanel.style.display = 'block';
-            }
+            if (window.innerWidth > 768) { showPanel(); }
         });
         shareIcon.addEventListener('mouseleave', function () {
             if (window.innerWidth > 768) {
-                setTimeout(function () {
-                    sharePanel.style.display = 'none';
-                }, 1500);
+                hideTimer = setTimeout(hidePanel, 1500);
             }
         });
-        // 点击面板外关闭
+        sharePanel.addEventListener('mouseenter', function () {
+            if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+        });
+        sharePanel.addEventListener('mouseleave', function () {
+            if (window.innerWidth > 768) {
+                hideTimer = setTimeout(hidePanel, 800);
+            }
+        });
+
         document.addEventListener('click', function (e) {
             if (!shareIcon.contains(e.target) && !sharePanel.contains(e.target)) {
-                sharePanel.style.display = 'none';
+                hidePanel();
             }
         });
+        document.addEventListener('touchstart', function (e) {
+            if (!shareIcon.contains(e.target) && !sharePanel.contains(e.target)) {
+                hidePanel();
+            }
+        }, { passive: true });
     }
 }
 
