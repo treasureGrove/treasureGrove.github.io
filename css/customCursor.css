@@ -1,0 +1,100 @@
+@media (hover: hover) and (pointer: fine) {
+    :root {
+        --cursor-core-size: 7px;
+        --cursor-ring-size: 54px;
+        --cursor-core-color: #fff;
+        --cursor-ring-color: rgba(200, 255, 255, 0.82);
+        --cursor-ring-active: #aef6ff;
+    }
+
+    html.custom-cursor-enabled,
+    html.custom-cursor-enabled body,
+    html.custom-cursor-enabled a,
+    html.custom-cursor-enabled button,
+    html.custom-cursor-enabled input,
+    html.custom-cursor-enabled textarea,
+    html.custom-cursor-enabled select,
+    html.custom-cursor-enabled label,
+    html.custom-cursor-enabled [role="button"],
+    html.custom-cursor-enabled [onclick] {
+        cursor: none !important;
+    }
+
+    .custom-cursor-dot,
+    .custom-cursor-dot,
+    .custom-cursor-ring {
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 2147483647;
+        opacity: 0;
+        transition: opacity 0.18s ease, transform 0.16s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .custom-cursor-dot {
+        border-radius: 50%;
+        width: var(--cursor-core-size);
+        height: var(--cursor-core-size);
+        background: var(--cursor-core-color);
+        box-shadow: 0 0 16px #baffff, 0 0 32px #fff, 0 0 2px #aef6ff;
+        filter: blur(0.5px);
+    }
+
+    .custom-cursor-ring {
+        border-radius: 50%;
+        width: var(--cursor-ring-size);
+        height: var(--cursor-ring-size);
+        border: 2.2px solid var(--cursor-ring-color);
+        background: rgba(255,255,255,0.03);
+        box-shadow: 0 0 32px #baffff, 0 0 48px #fff, 0 0 0px #aef6ff;
+        filter: blur(0.5px);
+        animation: cursor-ring-spin 7s linear infinite;
+        backdrop-filter: blur(2.5px);
+    }
+
+
+    html.custom-cursor-enabled.cursor-visible .custom-cursor-dot,
+    html.custom-cursor-enabled.cursor-visible .custom-cursor-ring {
+        opacity: 1;
+    }
+
+    html.custom-cursor-enabled.cursor-hover .custom-cursor-dot {
+        transform: translate(-50%, -50%) scale(1.25);
+        box-shadow: 0 0 24px #aef6ff, 0 0 36px #fff, 0 0 2px #aef6ff;
+    }
+
+    html.custom-cursor-enabled.cursor-hover .custom-cursor-ring {
+        transform: translate(-50%, -50%) scale(1.13);
+        border-color: var(--cursor-ring-active);
+        background: rgba(174, 246, 255, 0.09);
+        box-shadow: 0 0 48px #aef6ff, 0 0 64px #fff, 0 0 0px #aef6ff;
+    }
+
+    html.custom-cursor-enabled.cursor-hover .custom-cursor-spark {
+        transform: translate(-50%, -50%) scale(1.3);
+        filter: drop-shadow(0 0 11px rgba(255, 120, 188, 0.96));
+    }
+
+    html.custom-cursor-enabled.cursor-hover .custom-cursor-note {
+        transform: translate(-50%, -50%) scale(1.25) rotate(-2deg);
+    }
+
+    html.custom-cursor-enabled.cursor-click .custom-cursor-ring {
+        transform: translate(-50%, -50%) scale(0.93);
+        box-shadow: 0 0 32px #aef6ff, 0 0 48px #fff, 0 0 0px #aef6ff;
+    }
+
+    html.custom-cursor-enabled.cursor-click .custom-cursor-dot {
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    @keyframes cursor-ring-spin {
+        from {
+            box-shadow: 0 0 32px #baffff, 0 0 48px #fff, 0 0 0px #aef6ff;
+        }
+        to {
+            box-shadow: 0 0 36px #aef6ff, 0 0 56px #fff, 0 0 0px #aef6ff;
+        }
+    }
+}
