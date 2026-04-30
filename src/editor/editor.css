@@ -4,37 +4,50 @@
   height: 100vh;
   overflow: hidden;
   background: #03040a;
+  --editor-top: 54px;
+  --editor-side: 390px;
+  --editor-bottom: 190px;
 }
 
 .editor-viewport {
   position: absolute;
-  inset: 0;
+  inset: var(--editor-top) var(--editor-side) var(--editor-bottom) 0;
 }
 
 .editor-toolbar {
   position: absolute;
   z-index: 10;
-  left: 16px;
-  top: 16px;
+  top: 0;
+  right: 0;
+  left: 0;
   display: flex;
   align-items: center;
+  height: var(--editor-top);
   gap: 10px;
-  padding: 10px 12px;
-  border: 1px solid rgba(54, 217, 255, 0.35);
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(54, 217, 255, 0.26);
   color: #eaf8ff;
-  background: rgba(3, 4, 10, 0.76);
-  backdrop-filter: blur(10px);
+  background: rgba(3, 4, 10, 0.9);
+  backdrop-filter: blur(14px);
+}
+
+.editor-toolbar strong {
+  margin-right: auto;
+  color: #00ffd1;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .editor-toolbar button,
 .editor-toolbar label,
 .editor-toolbar a {
   border: 1px solid rgba(0, 255, 209, 0.38);
-  padding: 7px 10px;
+  padding: 6px 10px;
   color: #eaf8ff;
   background: rgba(0, 255, 209, 0.08);
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .editor-toolbar input {
@@ -45,7 +58,7 @@
   pointer-events: none;
   position: absolute;
   left: 16px;
-  bottom: 184px;
+  bottom: calc(var(--editor-bottom) + 16px);
   z-index: 3;
   color: rgba(234, 248, 255, 0.72);
   font-size: 12px;
@@ -54,16 +67,17 @@
 .timeline-panel {
   position: absolute;
   z-index: 9;
-  right: 16px;
-  bottom: 16px;
-  left: 16px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: grid;
-  gap: 10px;
-  min-height: 146px;
+  grid-template-rows: 38px 1fr;
+  gap: 8px;
+  height: var(--editor-bottom);
   padding: 12px;
-  border: 1px solid rgba(54, 217, 255, 0.32);
+  border-top: 1px solid rgba(54, 217, 255, 0.26);
   color: #eaf8ff;
-  background: rgba(3, 4, 10, 0.82);
+  background: rgba(3, 4, 10, 0.92);
   backdrop-filter: blur(12px);
 }
 
@@ -72,6 +86,11 @@
   grid-template-columns: auto 64px 120px 1fr;
   align-items: center;
   gap: 10px;
+}
+
+.timeline-controls > span {
+  color: #00ffd1;
+  font-variant-numeric: tabular-nums;
 }
 
 .timeline-controls button,
@@ -105,8 +124,9 @@
 
 .timeline-tracks {
   display: grid;
-  gap: 8px;
-  max-height: 92px;
+  align-content: start;
+  gap: 6px;
+  max-height: 120px;
   overflow: auto;
 }
 
@@ -117,15 +137,19 @@
 
 .timeline-track {
   display: grid;
-  grid-template-columns: auto 160px 96px 1fr;
+  grid-template-columns: 52px 180px 100px 1fr;
   align-items: center;
   gap: 10px;
-  min-height: 28px;
+  min-height: 30px;
+  padding: 0 6px;
+  border: 1px solid rgba(54, 217, 255, 0.08);
+  background: rgba(54, 217, 255, 0.035);
   font-size: 12px;
 }
 
 .timeline-track button,
 .timeline-track select {
+  min-height: 24px;
   border: 1px solid rgba(255, 79, 216, 0.36);
   color: #eaf8ff;
   background: rgba(255, 79, 216, 0.08);
@@ -133,7 +157,7 @@
 
 .timeline-keyframes {
   position: relative;
-  height: 18px;
+  height: 20px;
   border: 1px solid rgba(54, 217, 255, 0.18);
   background: rgba(54, 217, 255, 0.04);
 }
@@ -172,17 +196,18 @@
 
 .parameter-inspector {
   position: absolute;
-  z-index: 8;
-  top: 72px;
-  right: 332px;
+  z-index: 9;
+  top: var(--editor-top);
+  right: 0;
+  bottom: var(--editor-bottom);
   display: grid;
+  grid-template-rows: 38px 1fr;
   gap: 10px;
-  width: 360px;
-  max-height: calc(100vh - 270px);
+  width: var(--editor-side);
   padding: 12px;
-  border: 1px solid rgba(54, 217, 255, 0.3);
+  border-left: 1px solid rgba(54, 217, 255, 0.26);
   color: #eaf8ff;
-  background: rgba(3, 4, 10, 0.72);
+  background: rgba(3, 4, 10, 0.88);
   overflow: auto;
   backdrop-filter: blur(12px);
 }
@@ -196,9 +221,15 @@
   text-transform: uppercase;
 }
 
+.parameter-inspector header span {
+  font-variant-numeric: tabular-nums;
+}
+
 .parameter-groups {
   display: grid;
+  align-content: start;
   gap: 12px;
+  overflow: auto;
 }
 
 .parameter-groups h2 {
@@ -211,10 +242,10 @@
 
 .parameter-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(78px, auto) 28px;
+  grid-template-columns: 118px minmax(0, 1fr) 28px;
   align-items: center;
   gap: 8px;
-  min-height: 28px;
+  min-height: 30px;
   border-top: 1px solid rgba(54, 217, 255, 0.08);
   font-size: 12px;
 }
@@ -227,6 +258,7 @@
   border: 1px solid rgba(54, 217, 255, 0.18);
   color: #eaf8ff;
   background: rgba(54, 217, 255, 0.06);
+  font-size: 12px;
 }
 
 .parameter-row input:disabled,
@@ -245,6 +277,10 @@
   gap: 4px;
 }
 
+.vec3-input input {
+  text-align: right;
+}
+
 .number-input {
   display: grid;
   grid-template-columns: minmax(80px, 1fr) 68px;
@@ -253,6 +289,10 @@
 
 .number-input input[type="range"] {
   padding: 0;
+}
+
+.number-input input[type="number"] {
+  text-align: right;
 }
 
 .parameter-row button {
@@ -270,21 +310,35 @@
 }
 
 @media (max-width: 820px) {
+  .editor-shell {
+    --editor-side: 0px;
+    --editor-bottom: 230px;
+  }
+
   .timeline-controls {
     grid-template-columns: 1fr 1fr;
   }
 
   .parameter-inspector {
-    right: 16px;
-    left: 16px;
+    top: auto;
+    right: 0;
+    bottom: var(--editor-bottom);
+    left: 0;
+    height: 240px;
     width: auto;
+    border-top: 1px solid rgba(54, 217, 255, 0.26);
+    border-left: 0;
   }
 
   .timeline-track {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 52px 1fr;
   }
 
   .timeline-keyframes {
+    grid-column: 1 / -1;
+  }
+
+  .bezier-controls {
     grid-column: 1 / -1;
   }
 }
