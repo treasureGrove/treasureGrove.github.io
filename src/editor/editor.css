@@ -1,0 +1,290 @@
+.editor-shell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #03040a;
+}
+
+.editor-viewport {
+  position: absolute;
+  inset: 0;
+}
+
+.editor-toolbar {
+  position: absolute;
+  z-index: 10;
+  left: 16px;
+  top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(54, 217, 255, 0.35);
+  color: #eaf8ff;
+  background: rgba(3, 4, 10, 0.76);
+  backdrop-filter: blur(10px);
+}
+
+.editor-toolbar button,
+.editor-toolbar label,
+.editor-toolbar a {
+  border: 1px solid rgba(0, 255, 209, 0.38);
+  padding: 7px 10px;
+  color: #eaf8ff;
+  background: rgba(0, 255, 209, 0.08);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.editor-toolbar input {
+  display: none;
+}
+
+.editor-orbit-hint {
+  pointer-events: none;
+  position: absolute;
+  left: 16px;
+  bottom: 184px;
+  z-index: 3;
+  color: rgba(234, 248, 255, 0.72);
+  font-size: 12px;
+}
+
+.timeline-panel {
+  position: absolute;
+  z-index: 9;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: grid;
+  gap: 10px;
+  min-height: 146px;
+  padding: 12px;
+  border: 1px solid rgba(54, 217, 255, 0.32);
+  color: #eaf8ff;
+  background: rgba(3, 4, 10, 0.82);
+  backdrop-filter: blur(12px);
+}
+
+.timeline-controls {
+  display: grid;
+  grid-template-columns: auto 64px 120px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.timeline-controls button,
+.timeline-controls select {
+  min-height: 32px;
+  border: 1px solid rgba(0, 255, 209, 0.34);
+  color: #eaf8ff;
+  background: rgba(0, 255, 209, 0.08);
+}
+
+.timeline-controls input[type="range"] {
+  width: 100%;
+}
+
+.timeline-duration {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 6px;
+  color: rgba(234, 248, 255, 0.72);
+  font-size: 12px;
+}
+
+.timeline-duration input {
+  width: 58px;
+  min-height: 28px;
+  border: 1px solid rgba(0, 255, 209, 0.24);
+  color: #eaf8ff;
+  background: rgba(0, 255, 209, 0.06);
+}
+
+.timeline-tracks {
+  display: grid;
+  gap: 8px;
+  max-height: 92px;
+  overflow: auto;
+}
+
+.timeline-empty {
+  color: rgba(234, 248, 255, 0.58);
+  font-size: 12px;
+}
+
+.timeline-track {
+  display: grid;
+  grid-template-columns: auto 160px 96px 1fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 28px;
+  font-size: 12px;
+}
+
+.timeline-track button,
+.timeline-track select {
+  border: 1px solid rgba(255, 79, 216, 0.36);
+  color: #eaf8ff;
+  background: rgba(255, 79, 216, 0.08);
+}
+
+.timeline-keyframes {
+  position: relative;
+  height: 18px;
+  border: 1px solid rgba(54, 217, 255, 0.18);
+  background: rgba(54, 217, 255, 0.04);
+}
+
+.timeline-keyframes i {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: #ffb000;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.bezier-controls {
+  grid-column: 4;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.bezier-controls label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 4px;
+  color: rgba(234, 248, 255, 0.64);
+}
+
+.bezier-controls input {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid rgba(54, 217, 255, 0.18);
+  color: #eaf8ff;
+  background: rgba(54, 217, 255, 0.06);
+}
+
+.parameter-inspector {
+  position: absolute;
+  z-index: 8;
+  top: 72px;
+  right: 332px;
+  display: grid;
+  gap: 10px;
+  width: 360px;
+  max-height: calc(100vh - 270px);
+  padding: 12px;
+  border: 1px solid rgba(54, 217, 255, 0.3);
+  color: #eaf8ff;
+  background: rgba(3, 4, 10, 0.72);
+  overflow: auto;
+  backdrop-filter: blur(12px);
+}
+
+.parameter-inspector header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #00ffd1;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.parameter-groups {
+  display: grid;
+  gap: 12px;
+}
+
+.parameter-groups h2 {
+  margin: 0 0 6px;
+  color: rgba(234, 248, 255, 0.68);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.parameter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(78px, auto) 28px;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  border-top: 1px solid rgba(54, 217, 255, 0.08);
+  font-size: 12px;
+}
+
+.parameter-row input,
+.parameter-row select {
+  min-width: 0;
+  width: 100%;
+  min-height: 24px;
+  border: 1px solid rgba(54, 217, 255, 0.18);
+  color: #eaf8ff;
+  background: rgba(54, 217, 255, 0.06);
+}
+
+.parameter-row input:disabled,
+.parameter-row select:disabled {
+  color: rgba(234, 248, 255, 0.56);
+  cursor: not-allowed;
+}
+
+.parameter-row input[type="checkbox"] {
+  width: 18px;
+}
+
+.vec3-input {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.number-input {
+  display: grid;
+  grid-template-columns: minmax(80px, 1fr) 68px;
+  gap: 6px;
+}
+
+.number-input input[type="range"] {
+  padding: 0;
+}
+
+.parameter-row button {
+  width: 26px;
+  height: 24px;
+  border: 1px solid rgba(255, 176, 0, 0.38);
+  color: #ffb000;
+  background: rgba(255, 176, 0, 0.08);
+  cursor: pointer;
+}
+
+.parameter-row button.is-keyed {
+  color: #03040a;
+  background: #ffb000;
+}
+
+@media (max-width: 820px) {
+  .timeline-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .parameter-inspector {
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+
+  .timeline-track {
+    grid-template-columns: auto 1fr;
+  }
+
+  .timeline-keyframes {
+    grid-column: 1 / -1;
+  }
+}

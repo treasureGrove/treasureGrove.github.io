@@ -1,0 +1,42 @@
+{
+  "character": {
+    "modelUrl": null,
+    "animationClip": null,
+    "position": [0, -0.35, 0],
+    "rotation": [0, 0, 0],
+    "scale": 1,
+    "animation": "float",
+    "animationSpeed": 1,
+    "autoRotate": false
+  },
+  "camera": {
+    "position": [0, 1.25, 6],
+    "fov": 38,
+    "target": [0, 0.95, 0]
+  },
+  "lighting": {
+    "keyColor": "#c8f5ff",
+    "keyIntensity": 1.5,
+    "rimColor": "#36d9ff",
+    "rimIntensity": 4,
+    "accentColor": "#ff4fd8",
+    "accentIntensity": 2.4
+  },
+  "effects": {
+    "energyRingColor": "#36d9ff",
+    "energyRingSpeed": 0.28,
+    "particleColor": "#00ffd1",
+    "particleCount": 300,
+    "bloomIntensity": 0.7,
+    "vignetteDarkness": 0.55
+  },
+  "debug": {
+    "showGrid": true,
+    "showAxes": true,
+    "showHelpers": false
+  },
+  "timeline": {
+    "duration": 6,
+    "tracks": []
+  }
+}
