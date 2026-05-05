@@ -153,14 +153,14 @@ body {
   font-size: 30px;
   font-weight: 600;
   padding-bottom: min(5%, 10px);
-  color: #5476db
+  color: #eeeeee
 }
 
 .card-title {
   font-size: 80px;
   font-weight: 700;
   padding-bottom: min(20%, 40px);
-  color: rgb(171, 190, 253);
+  color: rgb(116, 153, 255);
 }
 
 .card-content {
