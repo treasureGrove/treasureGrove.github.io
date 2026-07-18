@@ -1,0 +1,964 @@
+//#asset is_explicit = {true}
+//#asset is_deferred = {true}
+//#asset shading_mode = {default_lit}
+
+//#category alpha_clip
+//#option_default on
+//#option on
+//#option off
+
+//#category z_terrain_blend
+//#option_default off
+//#option off
+//#option on
+
+//#category layer_mask
+//#option_default off
+//#option on
+//#option off
+
+//#category attribute_normal
+//#option_default enable
+//#option enable
+
+//#category attribute_uv0
+//#option_default enable
+//#option enable
+
+//#category attribute_color0
+//#option_default enable
+//#option enable
+
+//#category attribute_world_clip_position
+//#option_default enable
+//#option enable
+
+//#category attribute_custom_data
+//#option_default enable
+//#option enable
+
+//#category mesh_type
+//#option_default rigid
+//#option rigid
+
+//#category environment_light
+//#option_default on
+//#option off
+//#option on
+
+//#category vertex_input_type
+//#option_default standard
+//#option standard
+//#option multi_draw_indirect
+//#option nano
+//#option instanced_mesh
+
+//#category attribute_front_face
+//#option_default enable
+//#option enable
+//#option disable
+
+//-----------------------------------------------------------------------------------------------------------
+// Properties
+
+//#group Value = {index(0)}
+//#param float alpha_clip_value = {min(0.0), max(1.0), default(0.333), group(Value), index(0)};
+//#param float use_clip_lerp = {min(0.0), max(1.0), default(1.0), group(Value), index(1)};
+//#param float clip_lerp_distance = {min(0.0), max(1000.0), default(80.0), group(Value), index(2)};
+//#param float alpha_clip_value_far = {min(0.0), max(1.0), default(0.1), group(Value), index(3)};
+//#param float4 uv_tilling_offset = {default(1.0,1.0,0.0,0.0), group(Value), index(4)};
+//#param sampler2D noise_map={default(_engine/textures/default/Marcie_Grain_v3_128_M2_000.texture.ast), group(Value), index(5)};
+
+//#group Albedo = {index(1)}
+//#param sampler2D base_color_opacity_map ={default(grey), group(Albedo), index(0)};
+//#param float4 base_color_multiplier = {default(1.0,1.0,1.0,1.0), group(Albedo), index(1)};
+//#param float base_color_brightness = {min(0.0), max(10.0), default(1.0), group(Albedo), index(2)};
+//#param float base_color_contrast = {min(0.0), max(10.0), default(1.0), group(Albedo), index(3)};
+//#param float base_color_saturation = {min(0.0), max(10.0), default(1.0), group(Albedo), index(4)};
+
+//#group Normal = {index(2)}
+//#param sampler2D normal_roughness_map = {default(textures/default/flat_n_bc5.texture.ast), group(Normal), index(0)};
+//#param float normal_strength = {min(0.0), max(5.0), default(1.0), group(Normal), index(1)};
+
+//#group OrsMask = {index(3)}
+//#param float ao_scale = {min(0.0), max(1.0), default(0.0), group(OrsMask), index(0)};
+//#param float ao_contrast = {min(-10.0), max(10.0), default(0.0), group(OrsMask), index(1)};
+//#param float roughness_contrast = {min(0.0), max(10.0), default(1.0), group(OrsMask), index(2)};
+//#param float roughness_scale = {min(0.0), max(10.0), default(1.0), group(OrsMask), index(3)};
+//#param float specular_value = {min(0.0), max(5.0), default(0.5), group(OrsMask), index(4)};
+
+//#group Layer = {index(4)}
+//#param sampler2D layer_base_color_opacity_map = {default(grey), group(Layer), index(0)};
+//#param sampler2D layer_normal_map = {default(grey), group(Layer), index(1)};
+//#param sampler2D layer_ors_mask_map = {default(grey), group(Layer), index(2)};
+//#param float4 layer_uv_tilling_offset = {default(1.0,1.0,0.0,0.0), group(Layer), index(3)};
+//#param float4 layer_base_color_multiplier = {default(1.0,1.0,1.0,1.0), group(Layer), index(4)};
+//#param float layer_base_color_brightness = {min(0.0), max(10.0), default(1.0), group(Layer), index(5)};
+//#param float layer_base_color_contrast = {min(0.0), max(10.0), default(1.0), group(Layer), index(6)};
+//#param float layer_base_color_saturation = {min(0.0), max(10.0), default(1.0), group(Layer), index(7)};
+//#param float layer_normal_strength = {min(0.0), max(5.0), default(1.0), group(Layer), index(8)};
+//#param float layer_roughness_contrast = {min(0.0), max(10.0), default(1.0), group(Layer), index(9)};
+//#param float layer_roughness_scale = {min(0.0), max(10.0), default(1.0), group(Layer), index(10)};
+//#param float layer_specular_value = {min(0.0), max(5.0), default(0.5), group(Layer), index(11)};
+
+//#group LayerMask = {index(5)}
+//#param float object_height = {min(0.0), max(10.0), default(0.0), group(LayerMask), index(0)};
+//#param float mask_height = {min(0.0), max(10.0), default(0.0), group(LayerMask), index(1)};
+//#param float softness = {min(0.0), max(10.0), default(0.0), group(LayerMask), index(2)};
+
+//#group Wind-Local = {index(6)}
+//#param float4 local_wind_direction = {default(1.0,1.0,1.0,1.0), group(Wind-Local), index(0)};
+//#param float local_wind_intensity = {min(0.0), max(10.0), default(10.0), group(Wind-Local), index(1)};
+//#param float scene_global_wind_instensity = {min(0.0), max(1.0), default(1.0), group(Wind-Local), index(2)};
+
+// =====================================================================================================
+// NOTE: The branch_* / shared_* params in the Wind-Branch/Shared groups below are DECLARED and USED in
+//       the shared header "TA/speedtree/speedtree_games_wind.hlsli", NOT in this file. Do NOT delete
+//       these //#param entries just because you cannot find a matching `float xxx;` declaration or
+//       usage locally -- they drive the shared SpeedTree wind functions. Keep them in sync with the
+//       header and the frond material so branches and leaves stay synchronized.
+//       (Ripple is intentionally omitted here: branches do not flutter like leaves.)
+// =====================================================================================================
+//#group Wind-Branch = {index(7)}
+//#param float branch_enabled = {min(0.0), max(1.0), default(1.0), group(Wind-Branch), index(0)};
+//#param float branch_bend_amount = {min(0.0), max(20.0), default(0.5), group(Wind-Branch), index(1)};
+//#param float branch_sway_amount = {min(0.0), max(20.0), default(0.2), group(Wind-Branch), index(2)};
+//#param float scene_branch_wind_influence = {min(0.0), max(1.0), default(0.1), group(Wind-Branch), index(3)};
+//#param float branch_intensity = {min(0.0), max(2.0), default(1.0), group(Wind-Branch), index(4)};
+
+//#group Wind-Shared = {index(8)}
+//#param float shared_enabled = {min(0.0), max(1.0), default(1.0), group(Wind-Shared), index(0)};
+//#param float shared_bend = {min(0.0), max(20.0), default(0.4), group(Wind-Shared), index(1)};
+//#param float shared_oscillation = {min(0.0), max(20.0), default(0.4), group(Wind-Shared), index(2)};
+//#param float shared_speed = {min(0.0), max(10.0), default(2.0), group(Wind-Shared), index(3)};
+//#param float scene_shared_wind_influence = {min(0.0), max(1.0), default(0.1), group(Wind-Shared), index(4)};
+//#param float z_granding_origin = {min(0.0), max(1.0), default(0.3), group(Wind-Shared), index(5)};
+//#param float z_granding_falloff = {min(0.1), max(16.0), default(1.32), group(Wind-Shared), index(6)};
+//#param float shared_intensity = {min(0.0), max(2.0), default(2.0), group(Wind-Shared), index(7)};
+//#param float foliage_height = {min(0.01), max(500.0), default(15.0), group(Wind-Shared), index(8)};
+
+//#group Interactive = {index(9)}
+//#param float interaction_enabled = {min(0.0), max(1.0), default(0.0), group(Interactive), index(0)};
+//#param float sphere_radius = {min(0.0), max(1000.0), default(4.0), group(Interactive), index(1)};
+//#param float sphere_velocity_radius = {min(0.0), max(1000.0), default(10.0), group(Interactive), index(2)};
+
+//#group NearClip = {index(10)}
+//#param float nearclip_enabled = {min(0.0), max(1.0), default(0.0), group(NearClip), index(0)};
+//#param float nearclip_range = {min(0.0), max(100.0), default(3.0), group(NearClip), index(1)};
+//#param float nearclip_max_translucent = {min(0.0), max(1.0), default(0.1), group(NearClip), index(2)};
+//#param float nearclip_dither_density = {min(1.0), max(10000.0), default(2000.0), group(NearClip), index(3)};
+
+//#group LodFade = {index(11)}
+//#param float lod_fade_enabled = {min(0.0), max(1.0), default(0.0), group(LodFade), index(0)};
+//#param float4 lod_screen_sizes = {default(2.0, 0.5, 0.25, 0.125), group(LodFade), index(1)};
+//#param float lod_fade_ratio = {min(0.0), max(1.5), default(0.3), group(LodFade), index(2)};
+//#param float lod_sphere_radius = {min(0.1), max(1000.0), default(4.549617), group(LodFade), index(3)};
+//#param float lod_fade_min_alpha = {min(0.0), max(1.0), default(0.88), group(LodFade), index(4)};
+
+//#group TerrainBlend = {index(12)}
+//#param float terrain_blend_range = {min(0.1), max(20.0), default(1.0), group(TerrainBlend), index(0)};
+//#param float terrain_blend_contrast = {min(0.0), max(20.0), default(0.5), group(TerrainBlend), index(1)};
+//#param float height_add = {min(-20.0), max(2000.0), default(0.2), group(TerrainBlend), index(2)};
+//#param float noise_intense = {min(-1.0), max(1.0), default(0.0), group(TerrainBlend), index(3)};
+//#param float4 terrain_map_mutiplier = {default(1.0, 1.0, 1.0, 1.0), group(TerrainBlend), index(4)};
+//#param float terrain_map_roughness_add = {min(-1.0), max(1.0), default(0.0), group(TerrainBlend), index(5)};
+//#param float terrain_map_metallic_add = {min(-1.0), max(1.0), default(0.0), group(TerrainBlend), index(6)};
+//#param float terrain_map_normal_intensity = {min(0.0), max(10.0), default(1.0), group(TerrainBlend), index(7)};
+
+//-----------------------------------------------------------------------------------------------------------
+// CustomDataInOutput must always be declared (referenced by input_output_common.hlsli)
+struct CustomDataInOutput {
+    float4 custom_data1 : TEXCOORD13;
+};
+
+#include "core/vertex_shader_factory/vertex_common.hlsli"
+#include "core/common/common_endecode.hlsli"
+#include "core/common/global_constants.hlsli"
+#include "core/vertex_shader_factory/animation_vertex_common.hlsli"
+#include "core/vertex_shader_factory/input_output_common.hlsli"
+#include "core/gpu_driven/gpu_primitive_common.hlsli"
+#include "core/common/temporal_dither.hlsli"
+#include "core/terrain/common_func.hlsli"
+
+struct CommonVertexInput {
+#ifdef VERTEX_INPUT_TYPE_MULTI_DRAW_INDIRECT
+    uint vertex_id : CHAOS_VERTEX_ID;
+    uint4 drawcall_id : DRAWCALLIDX;
+    uint instance_index : CHAOS_INSTANCE_ID;
+#elif defined(VERTEX_INPUT_TYPE_NANO)
+    uint vertex_id : CHAOS_VERTEX_ID;
+    uint instance_index : CHAOS_INSTANCE_ID;
+#else
+    float3 position : POSITION;
+
+#ifdef ATTRIBUTE_NORMAL_ENABLE
+    float4 normal : NORMAL;
+    float4 tangent : TANGENT;
+#endif
+
+#ifdef ATTRIBUTE_UV0_ENABLE
+    float2 uv0 : TEXCOORD0;
+#endif
+
+#ifdef ATTRIBUTE_UV1_ENABLE
+    float2 uv1 : TEXCOORD1;
+#endif
+
+#if defined(ATTRIBUTE_COLOR0_ENABLE)
+    float4 color : COLOR0;
+#endif
+
+#if defined(MESH_TYPE_BONE) || defined(MESH_TYPE_DESTRUCTION) || defined(MESH_TYPE_CLOTH_SIMULATION)
+    uint4 blend_ids : BLENDINDICES;
+    float4 blend_weights : BLENDWEIGHT;
+#endif
+
+#ifdef MESH_TYPE_CLOTH_SIMULATION
+    float4 barycoord_pos : TEXCOORD9;
+    float4 barycoord_normal : TEXCOORD10;
+    float4 barycoord_tangent : TEXCOORD11;
+    int4 simul_indices : TEXCOORD12;
+#endif
+
+    uint instance_index : CHAOS_INSTANCE_ID;
+
+#endif
+};
+
+#include "core/vertex_shader_factory/vertex_parameters.hlsli"
+#include "TA/character/character_transform.hlsli"
+#include "TA/core/foliage_core.hlsli"
+#include "custom_render_target/custom_render_target_utility.hlsli"
+#include "core/foliage/helicopter_offset.hlsli"
+
+CHAOS_DECLARE_TEX2D(noise_map);
+
+float4 local_wind_direction;
+float local_wind_intensity;
+float scene_global_wind_instensity;
+
+
+
+
+
+// Interaction parameters
+float interaction_enabled;
+float sphere_radius;
+float sphere_velocity_radius;
+
+// LOD Fade parameters
+float lod_fade_enabled;
+float4 lod_screen_sizes;
+float lod_fade_ratio;
+float lod_sphere_radius;
+float lod_fade_min_alpha;
+
+// Near Clip parameters
+float nearclip_enabled;
+float nearclip_range;
+float nearclip_max_translucent;
+float nearclip_dither_density;
+
+#ifdef LAYER_MASK_ON
+float object_height;
+float mask_height;
+float softness;
+#endif
+
+uint render_entity_id;
+
+float3 SafeNormalize(float3 input_vector) {
+    if (dot(input_vector, input_vector) > 0.0000001f) {
+        return normalize(input_vector);
+    }
+    else {
+        return float3(0.0f, 0.0f, 0.0f);
+    }
+}
+
+#include "TA/speedtree/speedtree_games_wind.hlsli"
+
+float4 getBlendedWindDirectionStrength() {
+    float blend_factor = saturate(scene_global_wind_instensity);
+    float3 local_wind_dir = SafeNormalize(local_wind_direction.xyz);
+    float3 level_wind_dir = SafeNormalize(per_level_wind_direction_strength.xyz);
+    float3 blended_wind_dir = SafeNormalize(lerp(local_wind_dir, level_wind_dir, blend_factor));
+    float blended_wind_strength = lerp(local_wind_intensity, per_level_wind_direction_strength.w, blend_factor);
+    return float4(blended_wind_dir, blended_wind_strength);
+}
+
+//-----------------------------------------------------------------------------------------------------------
+// Interaction System
+//-----------------------------------------------------------------------------------------------------------
+static const float kTrailBendStrength = 0.38;
+static const float kTrailMaxBendRatio = 0.46;
+
+float3 foliageInteraction(float3 world_position, float3 object_pos, float bend_scale, float3 view_position, float bbox_height, float bbox_top_z) {
+    if (bbox_height > 2.0 || bbox_top_z > view_position.z + 1.0) return float3(0, 0, 0);
+
+    float2 view_dir = per_view_camera_direction.xy;
+    float view_dir_len = length(view_dir);
+    if (view_dir_len <= 0.0001) {
+        view_dir = per_frame_character_direction.xy;
+        view_dir_len = length(view_dir);
+    }
+    view_dir = view_dir_len > 0.0001 ? view_dir / view_dir_len : float2(0, 1);
+    float2 view_right = float2(-view_dir.y, view_dir.x);
+
+    float grass_height_factor = saturate(bbox_height / 0.8);
+    float short_grass_boost = lerp(2.2, 1.0, grass_height_factor);
+
+    float2 capsule_start = lerp(per_frame_character_position.xy, view_position.xy, 0.35);
+    float lead_distance = lerp(0.56, 0.28, grass_height_factor);
+    lead_distance = min(lead_distance, max(sphere_velocity_radius * 0.065, 0.28));
+    float2 capsule_end = capsule_start + view_dir * lead_distance;
+    float2 capsule_axis = capsule_end - capsule_start;
+    float capsule_axis_len_sq = max(dot(capsule_axis, capsule_axis), 0.0001);
+    float t = saturate(dot(object_pos.xy - capsule_start, capsule_axis) / capsule_axis_len_sq);
+    float2 closest_point = capsule_start + capsule_axis * t;
+
+    float2 root_delta = object_pos.xy - closest_point;
+    float root_dist = length(root_delta);
+    float radius = max(sphere_radius * lerp(0.16, 0.20, grass_height_factor), 0.001);
+    float root_mask = 1.0 - saturate(root_dist / radius);
+    root_mask = root_mask * root_mask * (3.0 - 2.0 * root_mask);
+    root_mask = root_mask * root_mask;
+
+    if (root_mask <= 0.0001) return float3(0, 0, 0);
+
+    float2 away_dir = root_dist > 0.0001 ? root_delta / root_dist : view_right;
+    float side_weight = saturate(abs(dot(away_dir, view_right)));
+    float2 push_dir = normalize(view_dir + away_dir * (0.05 + 0.05 * side_weight));
+
+    float3 vPos = world_position - object_pos;
+    float fLength = length(vPos);
+    if (fLength < 0.001) return float3(0, 0, 0);
+
+    float bbox_top_above_camera = bbox_top_z - view_position.z;
+    float height_atten = 1.0 - saturate((bbox_top_above_camera - 0.3) / 0.7);
+    height_atten = height_atten * height_atten * (3.0 - 2.0 * height_atten);
+
+    float fBF = vPos.z * bend_scale;
+    fBF += 1.0;
+    fBF *= fBF;
+    fBF = fBF * fBF - fBF;
+    float center_mask = root_mask * root_mask;
+    float contact_boost = lerp(1.0, 1.4, center_mask);
+    float interaction_strength = root_mask * short_grass_boost * contact_boost;
+
+    float2 bend_xy = push_dir * interaction_strength * fBF * height_atten * kTrailBendStrength;
+    float max_bend = fLength * min(kTrailMaxBendRatio * short_grass_boost, 0.82);
+    float bend_len = length(bend_xy);
+    if (bend_len > max_bend) bend_xy *= max_bend / bend_len;
+
+    float3 vNewPos = vPos;
+    vNewPos.xy += bend_xy;
+    float down_press = center_mask * short_grass_boost * fBF * height_atten * 0.16;
+    vNewPos.z -= down_press * fLength;
+    vNewPos = normalize(vNewPos) * fLength;
+
+    float3 result = vNewPos - vPos;
+    result.z = min(result.z, 0.0);
+    return result;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+// LOD Fade
+//-----------------------------------------------------------------------------------------------------------
+float computeLodFadeAlphaVS(float3 instance_position) {
+    if (lod_fade_ratio <= 0.0001) return 1.0;
+    float distance_to_camera = distance(instance_position, per_view_camera_position.xyz);
+    float screen_multiple = max(per_view_projection_matrix[0][0], per_view_projection_matrix[1][1]) * 0.5;
+    float screen_radius = screen_multiple * lod_sphere_radius / max(1.0, distance_to_camera);
+    float screen_size = screen_radius * 2.0;
+
+    float lo, hi;
+    if (screen_size >= lod_screen_sizes.y) {
+        lo = lod_screen_sizes.y;
+        hi = lod_screen_sizes.x;
+    }
+    else if (screen_size >= lod_screen_sizes.z) {
+        lo = lod_screen_sizes.z;
+        hi = lod_screen_sizes.y;
+    }
+    else if (screen_size >= lod_screen_sizes.w) {
+        lo = lod_screen_sizes.w;
+        hi = lod_screen_sizes.z;
+    }
+    else {
+        lo = 0.0;
+        hi = lod_screen_sizes.w;
+    }
+
+    float range = hi - lo;
+    float band = range * lod_fade_ratio;
+    float dist_to_lo = screen_size - lo;
+    if (dist_to_lo >= band) return 1.0;
+    float fade = saturate(dist_to_lo / band);
+    return max(fade, lod_fade_min_alpha);
+}
+
+//-----------------------------------------------------------------------------------------------------------
+// Vertex Shader
+//-----------------------------------------------------------------------------------------------------------
+#if defined(VERTEX_SHADER)
+float4 customObjectTransformation(float4 input_object_position, CommonVertexShaderAccessibleParameters parameters) {
+    return input_object_position;
+}
+
+float4 customPreviousObjectTransformation(float4 input_previous_object_position, CommonVertexShaderAccessibleParameters parameters) {
+    return input_previous_object_position;
+}
+
+float4 customWorldTransformation(float4 input_world_position, inout CommonVertexShaderAccessibleParameters parameters) {
+    float3 instance_pos, instance_scale;
+    instance_pos = parameters.instance_attribute.position;
+    instance_scale = parameters.instance_attribute.scale;
+
+    float3 relative_position = input_world_position.xyz - instance_pos;
+
+    //WindInput
+    float4 blended_wind = getBlendedWindDirectionStrength();
+    float3 wind_dir_nor = blended_wind.xyz;
+    float3 wind_direction = wind_dir_nor * float3(-1.0, -1.0, 0.0);
+
+    //-------------------------------------------------------------------------------------------------------
+    // SpeedTree Games wind (branch material): Shared (canopy) -> Branch (per-branch, vertex color G).
+    // No Ripple layer here - branches do not flutter like leaves. Shares identical formulas/params with
+    // the frond material so branch tips and the leaf clusters attached to them stay in sync.
+    //-------------------------------------------------------------------------------------------------------
+    float global_wind01 = blended_wind.w;
+
+    float4 wind_result = input_world_position;
+
+    // (1) Shared - whole-canopy bend & sway.
+    if (shared_enabled > 0.5) {
+        wind_result.xyz += computeSharedMotion(wind_result.xyz - instance_pos, instance_scale.z, wind_direction, global_wind01, parameters.instance_attribute.random_value, per_frame_time.x);
+    }
+    // (2) Branch - per-branch sway weighted by vertex color G.
+    if (branch_enabled > 0.5) {
+        wind_result.xyz += computeBranchMotion(wind_result.xyz - instance_pos, instance_scale.z, parameters.color.g, wind_direction, wind_dir_nor, global_wind01, parameters.instance_attribute.random_value, per_frame_time.x);
+    }
+
+    // Interaction (runtime controlled)
+    if (interaction_enabled > 0.5) {
+        float plant_height = instance_scale.z;
+        float plant_top_z = instance_pos.z + plant_height;
+        float bend_scale = 1.0 / max(plant_height, 0.001);
+        float3 interaction_offset = foliageInteraction(wind_result.xyz, instance_pos, bend_scale, per_view_camera_position.xyz, plant_height, plant_top_z);
+        wind_result.xyz += interaction_offset;
+    }
+
+    // Helicopter offset
+    float bend_scale_heli = 1.0 / max(instance_scale.z, 0.001);
+    float3 heli_offset = CalculateHelicopterOffset(wind_result.xyz, instance_pos, bend_scale_heli);
+    wind_result.xyz += heli_offset;
+
+    // LOD Fade alpha (runtime controlled)
+    if (lod_fade_enabled > 0.5) {
+        parameters.custom_data0.g = computeLodFadeAlphaVS(instance_pos);
+    }
+    else {
+        parameters.custom_data0.g = 1.0;
+    }
+
+    // Layer Mask
+#ifdef LAYER_MASK_ON
+    float relative_height = (input_world_position.z - instance_pos.z) / object_height;
+    float normalized_mask_height = mask_height;
+    float mask = (relative_height - normalized_mask_height) / softness;
+    parameters.custom_data0.r = smoothstep(-0.5, 0.5, mask);
+#endif
+
+    return wind_result;
+}
+
+float4 customPreviousWorldTransformation(float4 input_previous_world_position, inout CommonVertexShaderAccessibleParameters parameters) {
+    float3 instance_pos, instance_scale;
+    instance_pos = parameters.instance_attribute.pre_position;
+    instance_scale = parameters.instance_attribute.pre_scale;
+
+    float3 relative_position = input_previous_world_position.xyz - instance_pos;
+
+    //WindInput
+    float4 blended_wind = getBlendedWindDirectionStrength();
+    float3 wind_dir_nor = blended_wind.xyz;
+    float3 wind_direction = wind_dir_nor * float3(-1.0, -1.0, 0.0);
+
+    //-------------------------------------------------------------------------------------------------------
+    // SpeedTree Games wind (branch material): Shared (canopy) -> Branch (per-branch, vertex color G).
+    // No Ripple layer here - branches do not flutter like leaves. Shares identical formulas/params with
+    // the frond material so branch tips and the leaf clusters attached to them stay in sync.
+    //-------------------------------------------------------------------------------------------------------
+    float global_wind01 = blended_wind.w;
+
+    float4 wind_result = input_previous_world_position;
+
+    // (1) Shared - whole-canopy bend & sway.
+    if (shared_enabled > 0.5) {
+        wind_result.xyz += computeSharedMotion(wind_result.xyz - instance_pos, instance_scale.z, wind_direction, global_wind01, parameters.instance_attribute.random_value, per_frame_previous_time.x);
+    }
+    // (2) Branch - per-branch sway weighted by vertex color G.
+    if (branch_enabled > 0.5) {
+        wind_result.xyz += computeBranchMotion(wind_result.xyz - instance_pos, instance_scale.z, parameters.color.g, wind_direction, wind_dir_nor, global_wind01, parameters.instance_attribute.random_value, per_frame_previous_time.x);
+    }
+
+    // Interaction (runtime controlled)
+    if (interaction_enabled > 0.5) {
+        float plant_height = instance_scale.z;
+        float plant_top_z = instance_pos.z + plant_height;
+        float bend_scale = 1.0 / max(plant_height, 0.001);
+        float3 interaction_offset = foliageInteraction(wind_result.xyz, instance_pos, bend_scale, per_view_camera_previous_position.xyz, plant_height, plant_top_z);
+        wind_result.xyz += interaction_offset;
+    }
+
+    // Helicopter offset (previous frame)
+    float bend_scale_heli = 1.0 / max(instance_scale.z, 0.001);
+    float3 heli_offset = CalculateHelicopterOffset(wind_result.xyz, instance_pos, bend_scale_heli, per_frame_previous_time.x - per_frame_time.x);
+    wind_result.xyz += heli_offset;
+
+    // LOD Fade alpha (runtime controlled)
+    if (lod_fade_enabled > 0.5) {
+        parameters.custom_data0.g = computeLodFadeAlphaVS(instance_pos);
+    }
+    else {
+        parameters.custom_data0.g = 1.0;
+    }
+
+    // Layer Mask
+#ifdef LAYER_MASK_ON
+    float relative_height = (input_previous_world_position.z - instance_pos.z) / object_height;
+    float normalized_mask_height = mask_height;
+    float mask = (relative_height - normalized_mask_height) / softness;
+    parameters.custom_data0.r = smoothstep(-0.5, 0.5, mask);
+#endif
+
+    return wind_result;
+}
+
+#ifdef ATTRIBUTE_CUSTOM_DATA_ENABLE
+void customOutputAssembling(CommonVertexShaderAccessibleParameters input, inout CustomDataInOutput custom_data) {
+    custom_data.custom_data1 = input.custom_data0;
+    return;
+}
+#endif
+
+CommonVertexOutput VS_Entry_vertex_plants(CommonVertexInput input) {
+    CommonVertexOutput output = (CommonVertexOutput)0;
+#include "core/vertex_shader_factory/common_vertex_shader.hlsli"
+    return output;
+}
+#endif
+
+///////////////////////////////////////PS////////////////////////////////////////
+
+#include "core/gbuffer/gbuffer_mr.hlsli"
+#include "core/pixel_shader_factory/forward_shading_common.hlsli"
+#include "core/material/material_template.hlsli"
+#include "core/pixel_shader_factory/pixel_inoutput.hlsli"
+#include "core/material/material_surface_convert.hlsli"
+#include "core/common/color_space_common.hlsli"
+#include "core/terrain/common.hlsli"
+#include "core/terrain/common_def.hlsli"
+#include "core/terrain/common_func.hlsli"
+#include "core/terrain/compute_common.hlsli"
+
+//#region Texture Samplers
+CHAOS_DECLARE_TEX2D(base_color_opacity_map);
+CHAOS_DECLARE_TEX2D(normal_roughness_map);
+
+#ifdef LAYER_MASK_ON
+CHAOS_DECLARE_TEX2D(layer_base_color_opacity_map);
+CHAOS_DECLARE_TEX2D(layer_normal_map);
+CHAOS_DECLARE_TEX2D(layer_ors_mask_map);
+#endif
+
+//Hidden - terrain textures (always declared for engine binding)
+CHAOS_DECLARE_TEX2D_FORMAT(terrain_page_table_texture, uint);
+CHAOS_DECLARE_TEX2D(terrain_albedo_physical_texture);
+CHAOS_DECLARE_TEX2D(terrain_normal_physical_texture);
+CHAOS_DECLARE_TEX2D(terrain_pack_physical_texture);
+CHAOS_DECLARE_TEX2DARRAY(terrain_block_height_map_array_for_mesh);
+//#endregion
+
+CHAOS_CONSTANT_BUFFER_DECLARATION_BEGIN(Material)
+// ============ Hidden / engine-injected (terrain ref height info) ============
+float4 terrain_ref_height_info_array[k_max_chunk_count]; // ref_height, pool_index_map, padding, padding
+
+// ============ Base material ============
+float4 uv_tilling_offset;
+float4 base_color_multiplier;
+float base_color_contrast;
+float base_color_saturation;
+float base_color_brightness;
+
+float normal_strength;
+
+float ao_scale;
+float ao_contrast;
+float roughness_contrast;
+float roughness_scale;
+float specular_value;
+
+// ============ Layer ============
+#ifdef LAYER_MASK_ON
+float4 layer_uv_tilling_offset;
+float4 layer_base_color_multiplier;
+float layer_base_color_brightness;
+float layer_base_color_contrast;
+float layer_base_color_saturation;
+float layer_normal_strength;
+float layer_roughness_contrast;
+float layer_roughness_scale;
+float layer_specular_value;
+#endif
+
+// ============ Terrain blend ============
+float terrain_blend_range;
+float terrain_blend_contrast;
+float height_add;
+float noise_intense;
+float4 terrain_map_mutiplier;
+float terrain_map_roughness_add;
+float terrain_map_metallic_add;
+float terrain_map_normal_intensity;
+
+// ============ Hidden / engine-injected (VT system) ============
+float terrain_physical_page_size;
+float terrain_physical_page_border_size;
+float4 terrain_virtual_area;
+float4 terrain_eye_to_visibility_ref;
+float page_scale_factor;
+
+// ============ Hidden / engine-injected (terrain mesh height) ============
+float4 terrain_pos_lb; // pos_x, pos_y, num_x, num_y
+float is_terrain_existed;
+
+// ============ Alpha clip ============
+#ifdef ALPHA_CLIP_ON
+float alpha_clip_value;
+float use_clip_lerp;
+float clip_lerp_distance;
+float alpha_clip_value_far;
+#endif
+CHAOS_CONSTANT_BUFFER_DECLARATION_END
+
+// Utility functions
+float CheapContrast(float invalue, float contrast) {
+    float value = lerp((0.0 - contrast), (1.0 + contrast), invalue);
+    return saturate(value);
+}
+
+float3 desaturation(float3 input, float fraction) {
+    float3 LuminanceFactors = float3(0.3, 0.59, 0.11);
+    return lerp(input, dot(input, LuminanceFactors), fraction);
+}
+
+float3 primaryColorCorrection(float3 input, float saturation, float3 tint_color, float brightness, float contrast) {
+    float3 output = desaturation(input, 1.0f - saturation) * tint_color.rgb * brightness;
+    output = pow(output, contrast);
+    return output;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+// Terrain Blend Helper Functions
+//-----------------------------------------------------------------------------------------------------------
+#if defined(PIXEL_SHADER)
+
+float GetHeightForMesh(float2 world_pos_xy) {
+    if (is_terrain_existed < 0.01f) {
+        return 0.0f;
+    }
+
+    int2 block_xy = (world_pos_xy - terrain_pos_lb.xy) / k_terrain_block_size;
+    int block_index = clamp(block_xy.y * terrain_pos_lb.z + block_xy.x, 0, k_max_chunk_count - 1);
+    int array_index = terrain_ref_height_info_array[block_index].y;
+    int ref_height = terrain_ref_height_info_array[block_index].x;
+
+    float2 chunk_lb_pos = terrain_pos_lb.xy + float2(block_xy) * k_terrain_block_size;
+    float2 height_map_uv_xy = (world_pos_xy - chunk_lb_pos) / k_terrain_height_map_size;
+    float3 height_map_uv = float3(height_map_uv_xy, array_index);
+
+    float height = CHAOS_SAMPLE_TEX2DARRAY_LOD(terrain_block_height_map_array_for_mesh, height_map_uv, 0.0).x * k_terrain_height_map_scale_factor;
+    return height + ref_height;
+}
+
+int isInVirtualArea(float2 dpos) {
+    if (dpos.x > 0.0f && dpos.y > 0.0f && dpos.x < terrain_virtual_area.z && dpos.y < terrain_virtual_area.w) return 1;
+    return 0;
+}
+
+uint getPageIdFromRefPosition(float2 dpos, float lod) {
+    float2 page_table_uv = dpos / terrain_virtual_area.zw;
+    page_table_uv.y = 1.0f - page_table_uv.y;
+    uint page_id;
+    bool is_valid = GetPageTableId(terrain_page_table_texture, page_table_uv, 0.0f, page_id);
+    return page_id;
+}
+
+float ComputeHeightBlendMask(float mesh_z, float ground_z, float noise_val, float height_add_val, float blend_range, float blend_contrast, bool revert) {
+    float blend_pos = mesh_z - ground_z;
+    blend_pos = blend_pos / max(blend_range, 1e-5);
+    blend_pos += noise_val * noise_intense - height_add_val;
+    float mask = blend_pos;
+    mask = pow(mask, blend_contrast);
+    mask = saturate(mask);
+    if (revert) mask = 1.0 - mask;
+    return mask;
+}
+
+TerrainMaterialParameters getTerrainMaterialParameters(float3 world_position, float3 world_normal, float terrain_height) {
+    float3 tighten_factor = float3(0.2, 0.2, 0.2);
+    TerrainMaterialParameters terrain_paras = (TerrainMaterialParameters)0;
+    float x_sign_value = sign(dot(world_normal, float3(-1, 0, 0)));
+    float y_sign_value = sign(dot(world_normal, float3(0, -1, 0)));
+    float height_diff = world_position.z - terrain_height;
+    float3 position_ref_cam = world_position.xyz - per_view_camera_position.xyz;
+    float2 pos_ref_virtual_area_xy = position_ref_cam.xy - terrain_virtual_area.xy;
+    float2 pos_ref_virtual_area_xz = pos_ref_virtual_area_xy + float2(0, 1) * y_sign_value * height_diff;
+    float2 pos_ref_virtual_area_yz = pos_ref_virtual_area_xy + float2(1, 0) * x_sign_value * height_diff;
+
+    uint page_id_xy = getPageIdFromRefPosition(pos_ref_virtual_area_xy, 0);
+    uint page_id_xz = getPageIdFromRefPosition(pos_ref_virtual_area_xz, 0);
+    uint page_id_yz = getPageIdFromRefPosition(pos_ref_virtual_area_yz, 0);
+
+    if (isInVirtualArea(pos_ref_virtual_area_xy) && isInVirtualArea(pos_ref_virtual_area_xz) && isInVirtualArea(pos_ref_virtual_area_yz)
+        && IsValidPageId(page_id_xy) && IsValidPageId(page_id_xz) && IsValidPageId(page_id_yz)) {
+        float2 physical_uv_x = GetPhysicalTextureUV(pos_ref_virtual_area_yz, page_id_yz, terrain_physical_page_size, terrain_physical_page_border_size, page_scale_factor);
+        float2 physical_uv_y = GetPhysicalTextureUV(pos_ref_virtual_area_xz, page_id_xz, terrain_physical_page_size, terrain_physical_page_border_size, page_scale_factor);
+        float2 physical_uv_z = GetPhysicalTextureUV(pos_ref_virtual_area_xy, page_id_xy, terrain_physical_page_size, terrain_physical_page_border_size, page_scale_factor);
+
+        float3 albedo_x = CHAOS_SAMPLE_TEX2D(terrain_albedo_physical_texture, physical_uv_x).rgb;
+        float3 albedo_y = CHAOS_SAMPLE_TEX2D(terrain_albedo_physical_texture, physical_uv_y).rgb;
+        float3 albedo_z = CHAOS_SAMPLE_TEX2D(terrain_albedo_physical_texture, physical_uv_z).rgb;
+
+        float3 normal_x = unpackNormalMap(CHAOS_SAMPLE_TEX2D(terrain_normal_physical_texture, physical_uv_x).yx);
+        float3 normal_y = unpackNormalMap(CHAOS_SAMPLE_TEX2D(terrain_normal_physical_texture, physical_uv_y).yx);
+        float3 normal_z = unpackNormalMap(CHAOS_SAMPLE_TEX2D(terrain_normal_physical_texture, physical_uv_z).yx);
+        normal_x.y = -normal_x.y;
+        normal_y.y = -normal_y.y;
+        normal_z.y = -normal_z.y;
+
+        float3 pack_x = CHAOS_SAMPLE_TEX2D(terrain_pack_physical_texture, physical_uv_x).rgb;
+        float3 pack_y = CHAOS_SAMPLE_TEX2D(terrain_pack_physical_texture, physical_uv_y).rgb;
+        float3 pack_z = CHAOS_SAMPLE_TEX2D(terrain_pack_physical_texture, physical_uv_z).rgb;
+
+        float3 blend_weight = saturate(abs(world_normal) - tighten_factor);
+        blend_weight /= (blend_weight.x + blend_weight.y + blend_weight.z);
+
+        terrain_paras.base_color = (albedo_x * blend_weight.x + albedo_y * blend_weight.y + albedo_z * blend_weight.z) * terrain_map_mutiplier.rgb;
+        terrain_paras.normal = (normal_x * blend_weight.x + normal_y * blend_weight.y + normal_z * blend_weight.z) * terrain_map_normal_intensity;
+        terrain_paras.roughness = (pack_x.r * blend_weight.x + pack_y.r * blend_weight.y + pack_z.r * blend_weight.z) + terrain_map_roughness_add;
+        terrain_paras.metallic = (pack_x.g * blend_weight.x + pack_y.g * blend_weight.y + pack_z.g * blend_weight.z) + terrain_map_metallic_add;
+    }
+    return terrain_paras;
+}
+
+float assembleOpacityMaskDepthOnly(PixelParameters pixel_params) {
+    return CHAOS_SAMPLE_TEX2D(base_color_opacity_map, pixel_params.uvs[0]).w;
+}
+
+void assembleMaterialParams(PixelParameters pixel_params, inout MaterialParameters material_params) {
+    float2 uv_sample = pixel_params.uvs[0] * uv_tilling_offset.xy + uv_tilling_offset.zw;
+
+    // Sample textures
+    float4 base_color_opacity_value = CHAOS_SAMPLE_TEX2D(base_color_opacity_map, uv_sample);
+    float4 normal_roughness_value = CHAOS_SAMPLE_TEX2D(normal_roughness_map, uv_sample);
+
+    float3 base_color = primaryColorCorrection(base_color_opacity_value.rgb, base_color_saturation, base_color_multiplier.rgb, base_color_brightness, base_color_contrast);
+
+    float opacity_mask_value = base_color_opacity_value.a;
+
+    // Normal
+    float3 local_normal = decodeNormalFromNormalMapValueBC5(normal_roughness_value);
+    local_normal.xy *= normal_strength;
+    float3 normal_value = normalize(mul(local_normal, pixel_params.TBN));
+
+    // AO
+    float ao = saturate(lerp(1.0, CheapContrast(pixel_params.vertex_color.a, ao_contrast), ao_scale));
+
+    // Roughness
+    float roughness = pow(normal_roughness_value.a * roughness_scale, roughness_contrast);
+
+    // Specular
+    float specular = normal_roughness_value.b * specular_value;
+
+    float3 final_base_color = base_color;
+    float3 final_normal = normal_value;
+    float final_roughness = roughness;
+    float final_specular = specular;
+
+    // Layer Blend
+#ifdef LAYER_MASK_ON
+    float2 layer_uv_sample = pixel_params.uvs[0] * layer_uv_tilling_offset.xy + layer_uv_tilling_offset.zw;
+
+    float4 layer_base_color_opacity_value = CHAOS_SAMPLE_TEX2D(layer_base_color_opacity_map, layer_uv_sample);
+    float4 layer_normal_map_value = CHAOS_SAMPLE_TEX2D(layer_normal_map, layer_uv_sample);
+    float4 layer_ors_mask_value = CHAOS_SAMPLE_TEX2D(layer_ors_mask_map, layer_uv_sample);
+
+    float3 layer_base_color = primaryColorCorrection(layer_base_color_opacity_value.rgb, layer_base_color_saturation, layer_base_color_multiplier.rgb, layer_base_color_brightness, layer_base_color_contrast);
+
+    float3 layer_local_normal = decodeNormalFromNormalMapValueBC5(layer_normal_map_value);
+    layer_local_normal.xy *= layer_normal_strength;
+    float3 layer_normal_value = normalize(mul(layer_local_normal, pixel_params.TBN));
+
+    float layer_roughness = pow(layer_normal_map_value.a * layer_roughness_scale, layer_roughness_contrast);
+    float layer_specular = layer_normal_map_value.b * layer_specular_value;
+
+    // Blend using layer mask from vertex shader
+    float layer_blend = pixel_params.custom_data.custom_data1.r;
+    final_base_color = lerp(base_color, layer_base_color, layer_blend);
+    final_normal = lerp(normal_value, layer_normal_value, layer_blend);
+    final_roughness = lerp(roughness, layer_roughness, layer_blend);
+    final_specular = lerp(specular, layer_specular, layer_blend);
+#endif
+
+    // Apply AO
+    final_base_color *= ao;
+
+    // Output material parameters
+    material_params.base_color = final_base_color;
+    material_params.normal = final_normal;
+    material_params.metallic = 0.0f;
+    material_params.roughness = final_roughness;
+    material_params.dielectric_specular_multiplier = final_specular;
+
+#ifdef ALPHA_CLIP_ON
+    material_params.opacity_mask = opacity_mask_value;
+#endif
+
+    // Terrain Blend (compile-time gated)
+#ifndef SHADING_PATH_MOBILE
+#if defined(Z_TERRAIN_BLEND_ON)
+    {
+        float3 worldPos = pixel_params.world_position.xyz;
+        float ground_world_height = GetHeightForMesh(worldPos.xy);
+        TerrainMaterialParameters terrain_para = getTerrainMaterialParameters(worldPos, final_normal, ground_world_height);
+        float noise_val = CHAOS_SAMPLE_TEX2D(noise_map, worldPos.xy).r;
+        float mask = ComputeHeightBlendMask(worldPos.z, ground_world_height, noise_val, height_add, terrain_blend_range, terrain_blend_contrast, true);
+        material_params.base_color = lerp(material_params.base_color, terrain_para.base_color, mask);
+        material_params.normal = normalize(lerp(final_normal, normalize(mul(terrain_para.normal, pixel_params.TBN)), mask));
+        material_params.roughness = lerp(material_params.roughness, terrain_para.roughness, mask);
+        material_params.metallic = lerp(material_params.metallic, terrain_para.metallic, mask);
+    }
+#endif
+#endif
+}
+
+void customClip(PixelParameters pixel_params, MaterialParameters material_params) {
+    float final_clip_value = 1.0;
+
+#ifdef ALPHA_CLIP_ON
+    final_clip_value = min(final_clip_value, material_params.opacity_mask);
+#endif
+
+#ifdef ALPHA_CLIP_ON
+    float clip_threshold = lerp(alpha_clip_value, lerp(alpha_clip_value, alpha_clip_value_far, saturate(length(per_view_camera_position - pixel_params.world_position) / clip_lerp_distance)), use_clip_lerp);
+    clip(final_clip_value - clip_threshold);
+#else
+    clip(final_clip_value - 0.333);
+#endif
+
+    // Near Clip - dense two-directional grid dither (runtime controlled)
+    if (nearclip_enabled > 0.5) {
+        float dist_to_camera = distance(pixel_params.world_position.xy, per_view_camera_position.xy);
+        if (dist_to_camera < nearclip_range) {
+            float fade = saturate(dist_to_camera / max(0.001, nearclip_range));
+            fade = fade * fade * (3.0 - 2.0 * fade);
+            float opacity = lerp(nearclip_max_translucent, 1.0, fade);
+
+            // Two-directional grid pattern
+            float3 wp = pixel_params.world_position.xyz;
+            float2 grid_pos = frac(wp.xy * nearclip_dither_density);
+            float grid_line_width = 1.0 - opacity;
+            float grid_x = step(grid_line_width, grid_pos.x);
+            float grid_y = step(grid_line_width, grid_pos.y);
+            float grid_mask = grid_x * grid_y;
+
+            // Slight noise to break regularity
+            float noise1 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, frac(wp.xy * nearclip_dither_density * 0.63), 0).r;
+            grid_mask = lerp(grid_mask, noise1 * opacity, 0.1);
+
+            float near_clip_alpha = 1.0;
+#ifdef ALPHA_CLIP_ON
+            near_clip_alpha = material_params.opacity_mask;
+#endif
+            clip(near_clip_alpha * grid_mask - 0.5);
+        }
+    }
+
+    // LOD Fade dither
+    if (lod_fade_enabled > 0.5) {
+        float lod_fade_alpha = pixel_params.custom_data.custom_data1.g;
+        if (lod_fade_alpha < lod_fade_min_alpha) {
+            float2 lod_spos = pixel_params.clip_position.xy / pixel_params.clip_position.w;
+            lod_spos = (lod_spos * 0.5 + 0.5) * float2(1920, 1080);
+            int jitter_frame_index_lod = (int)(per_frame_temperal_effect_enabled.y + 0.1);
+            float dither = temporalDither2(lod_spos, jitter_frame_index_lod);
+            float2 noise_uv = lod_spos / float2(64.0, 64.0);
+            float noise_val = CHAOS_SAMPLE_TEX2D_LOD(noise_map, noise_uv, 0).r;
+            float animated_dither = (dither + noise_val) * (1.0 / 3.0);
+            float remapped_fade = lod_fade_alpha * (2.0 / 3.0);
+            clip(remapped_fade - animated_dither);
+        }
+    }
+
+    return;
+}
+#endif // PIXEL_SHADER
+
+#if defined(PIXEL_SHADER)
+CommonPixelOutput PS_Entry_opaque_deferred_mr_deferred(CommonPixelInput pixel_input) {
+    CommonPixelOutput pixel_output = (CommonPixelOutput)0;
+#include "core/pixel_shader_factory/common_pixel_shader.hlsli"
+    return pixel_output;
+}
+
+float4 PS_Entry_depth_only(CommonPixelInput pixel_input) : CHAOS_TARGET_OUTPUT0 {
+    float4 output_color = float4(0.0f, 0.0f, 0.0f, 1.0f);
+#include "core/pixel_shader_factory/common_pixel_shader_only_depth.hlsli"
+    return output_color;
+}
+
+int4 PS_Entry_tree_id_main(CommonPixelInput pixel_input) : CHAOS_TARGET_OUTPUT0 {
+#ifdef _CORE_VERTEX_SHADER_FACTORY_VERTEX_ATTRIBUTES_INSTANCED_MESH_HLSLI_
+    InstanceData instance_data = instance_data_buffer[uint(pixel_input.instance_data.x)];
+    return int4(1, asint(render_entity_id), asint(instance_data.id), 0);
+#else
+    return int4(1, asint(render_entity_id), asint(pixel_input.instance_data.x), 0);
+#endif
+}
+#endif
+
+technique tree_geometry
+{
+    pass depth_only
+    {
+#if defined(VERTEX_SHADER)
+        VertexShader = compile vs_5_0 VS_Entry_vertex_plants();
+#endif
+#if defined(PIXEL_SHADER)
+        PixelShader = compile ps_5_0 PS_Entry_depth_only();
+#endif
+    }
+
+    pass default_pass
+    {
+#if defined(VERTEX_SHADER)
+        VertexShader = compile vs_5_0 VS_Entry_vertex_plants();
+#endif
+#if defined(PIXEL_SHADER)
+        PixelShader = compile ps_5_0 PS_Entry_opaque_deferred_mr_deferred();
+#endif
+    }
+
+    pass pick_tree_id
+    {
+#if defined(VERTEX_SHADER)
+        VertexShader = compile vs_5_0 VS_Entry_vertex_plants();
+#endif
+#if defined(PIXEL_SHADER)
+        PixelShader = compile ps_5_0 PS_Entry_tree_id_main();
+#endif
+    }
+}
