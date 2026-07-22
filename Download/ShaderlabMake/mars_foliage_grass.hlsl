@@ -99,60 +99,60 @@
 //#param float4 equator_color_multiplier = {default(0.0,0.0,0.0,0.0), group(BackLit), index(2)};
 //#param float4 bottom_color_multiplier = {default(0.0,0.0,0.0,0.0), group(BackLit), index(3)};
 
-//#group Wind-Branch = {index(6)}
-//#param sampler2D wind_mask_map = {default(_engine/textures/default/game_wind_noise.texture.ast), group(Wind-Branch), index(0)};
-//#param float4 global_wind_direction = {default(0.0,0.0,0.0,0.0), group(Wind-Branch), index(1)};
-//#param float global_wind_speed = {min(0.0), max(10.0), default(1.0), group(Wind-Branch), index(2)};
-//#param float global_wind_intensity = {min(0.0), max(10.0), default(4.0), group(Wind-Branch), index(3)};
-//#param float scene_global_wind_instensity = {min(0.0), max(1.0), default(1.0), group(Wind-Branch), index(13)};
-//#param float wind_scale = {min(0.0), max(10.0), default(4.0), group(Wind-Branch), index(4)};
-//#param float wind_speed_multiplier = {min(0.0), max(10.0), default(1.0), group(Wind-Branch), index(5)};
-//#param float wind_gust_variation = {min(0.0), max(10.0), default(0.02), group(Wind-Branch), index(6)};
-//#param float wind_low_branch_speed = {min(0.0), max(10.0), default(5.0), group(Wind-Branch), index(7)};
-//#param float wind_low_speed = {min(0.0), max(10.0), default(3.0), group(Wind-Branch), index(8)};
-//#param float branch_motion_twist_multiplier = {min(0.0), max(10.0), default(0.0), group(Wind-Branch), index(9)};
-//#param float root_motion_multiplier = {min(0.0), max(10.0), default(3.0), group(Wind-Branch), index(10)};
-//#param float z_granding_origin = {min(0.0), max(10.0), default(0.0), group(Wind-Branch), index(11)};
-//#param float z_granding_weight = {min(0.0), max(10.0), default(1.5), group(Wind-Branch), index(12)};
+//#group Wind-Local = {index(6)}
+//#param float4 local_wind_direction = {default(0.0,0.0,0.0,0.0), group(Wind-Local), index(0)};
+//#param float global_wind_intensity = {min(0.0), max(10.0), default(1.0), group(Wind-Local), index(1)};
+//#param float scene_global_wind_instensity = {min(0.0), max(1.0), default(0.05), group(Wind-Local), index(2)};
 
-//#group Wind-Frond = {index(7)}
-//#param float twig_curve_filter = {min(0.0001), max(10.0), default(0.25), group(Wind-Frond), index(0)};
-//#param float wind_z_speed = {min(0.0), max(10.0), default(1.0), group(Wind-Frond), index(1)};
-//#param float wind_z_intensity = {min(0.0), max(10.0), default(0.5), group(Wind-Frond), index(2)};
-//#param float wind_intensity = {min(0.0), max(10.0), default(1.0), group(Wind-Frond), index(3)};
-//#param float wave_intensity = {min(0.0), max(5.0), default(2.0), group(Wind-Frond), index(4)};
-//#param float wave_frequency = {min(0.01), max(10.0), default(1.5), group(Wind-Frond), index(5)};
-//#param float wave_scale = {min(0.01), max(20.0), default(1.0), group(Wind-Frond), index(6)};
+//#group Wheat-Wave = {index(7)}
+//#param float wheat_wave_enabled = {min(0.0), max(1.0), default(1.0), group(Wheat-Wave), index(0)};
+//#param float wheat_wave_scale = {min(0.01), max(20.0), default(0.08), group(Wheat-Wave), index(1)};
+//#param float wheat_wave_speed = {min(0.0), max(10.0), default(0.5), group(Wheat-Wave), index(2)};
+//#param float wheat_wave_frequency = {min(0.01), max(10.0), default(1.5), group(Wheat-Wave), index(3)};
+//#param float wheat_wave_gust = {min(0.0), max(1.0), default(0.1), group(Wheat-Wave), index(4)};
+//#param float wheat_wave_amount = {min(0.0), max(5.0), default(1.0), group(Wheat-Wave), index(5)};
+//#param float scene_wheat_wind_influence = {min(0.0), max(1.0), default(0.2), group(Wheat-Wave), index(6)};
+//#param float scene_wheat_wind_deform = {min(0.0), max(20.0), default(19.9999), group(Wheat-Wave), index(7)};
+//#param float scene_wheat_wind_speed_response = {min(0.0), max(20.0), default(0.1), group(Wheat-Wave), index(8)};
+//#param float wheat_z_weight = {min(0.0), max(10.0), default(1.5), group(Wheat-Wave), index(9)};
 
-//#group Interactive = {index(8)}
+//#group Wheat-Flutter = {index(8)}
+//#param float wheat_flutter_enabled = {min(0.0), max(1.0), default(1.0), group(Wheat-Flutter), index(0)};
+//#param float wheat_flutter_speed = {min(0.0), max(20.0), default(3.0), group(Wheat-Flutter), index(1)};
+//#param float wheat_flutter_amount = {min(0.0), max(2.0), default(1.0), group(Wheat-Flutter), index(2)};
+//#param float scene_wheat_flutter_influence = {min(0.0), max(1.0), default(0.4), group(Wheat-Flutter), index(3)};
+//#param float scene_wheat_flutter_deform = {min(0.0), max(20.0), default(20.0), group(Wheat-Flutter), index(4)};
+//#param float scene_wheat_flutter_speed_response = {min(0.0), max(20.0), default(1.4), group(Wheat-Flutter), index(5)};
+
+//#group Interactive = {index(9)}
 //#param float interaction_enabled = {min(0.0), max(1.0), default(0.0), group(Interactive), index(0)};
 //#param float sphere_radius = {min(0.0), max(1000.0), default(4.0), group(Interactive), index(1)};
 //#param float sphere_velocity_radius = {min(0.0), max(1000.0), default(10.0), group(Interactive), index(2)};
 
-//#group SphereNormal = {index(9)}
+//#group SphereNormal = {index(10)}
 //#param float normal_sphere_self = {min(0.0), max(1.0), default(0.0), group(SphereNormal), index(0)};
 //#param float normal_sphere_self_near = {min(0.0), max(1.0), default(0.0), group(SphereNormal), index(1)};
 //#param float4 instance_postion_normal_offset = {default(0.0,0.0,0.0,0.0), group(SphereNormal), index(2)};
 
-//#group NearClip = {index(10)}
+//#group NearClip = {index(11)}
 //#param float nearclip_enabled = {min(0.0), max(1.0), default(0.0), group(NearClip), index(0)};
 //#param float nearclip_range = {min(0.0), max(100.0), default(3.0), group(NearClip), index(1)};
 //#param float nearclip_max_translucent = {min(0.0), max(1.0), default(0.1), group(NearClip), index(2)};
 //#param float nearclip_dither_density = {min(1.0), max(10000.0), default(2000.0), group(NearClip), index(3)};
 
-//#group LodFade = {index(11)}
+//#group LodFade = {index(12)}
 //#param float lod_fade_enabled = {min(0.0), max(1.0), default(0.0), group(LodFade), index(0)};
 //#param float4 lod_screen_sizes = {default(2.0, 0.5, 0.25, 0.125), group(LodFade), index(1)};
 //#param float lod_fade_ratio = {min(0.0), max(1.5), default(0.3), group(LodFade), index(2)};
 //#param float lod_sphere_radius = {min(0.1), max(1000.0), default(4.549617), group(LodFade), index(3)};
 //#param float lod_fade_min_alpha = {min(0.0), max(1.0), default(0.88), group(LodFade), index(4)};
 
-//#group Fresnel = {index(12)}
+//#group Fresnel = {index(13)}
 //#param float fresnel_enabled = {min(0.0), max(1.0), default(0.0), group(Fresnel), index(0)};
 //#param float fresnel_amount = {min(0.0), max(1.0), default(0.7), group(Fresnel), index(1)};
 //#param float fresnel_exponent = {min(1.0), max(10.0), default(5.0), group(Fresnel), index(2)};
 
-//#group TerrainBlend = {index(13)}
+//#group TerrainBlend = {index(14)}
 //#param float terrain_blend_range = {min(0.1), max(20.0), default(1.0), group(TerrainBlend), index(0)};
 //#param float terrain_blend_contrast = {min(0.0), max(20.0), default(0.5), group(TerrainBlend), index(1)};
 //#param float height_add = {min(-20.0), max(2000.0), default(0.2), group(TerrainBlend), index(2)};
@@ -228,32 +228,32 @@ struct CommonVertexInput {
 #include "custom_render_target/custom_render_target_utility.hlsli"
 #include "core/foliage/helicopter_offset.hlsli"
 
-CHAOS_DECLARE_TEX2D(wind_mask_map);
 CHAOS_DECLARE_TEX2D(noise_map);
 
-float4 global_wind_direction;
-float global_wind_speed;
+// Wind-Local
+float4 local_wind_direction;
 float global_wind_intensity;
 float scene_global_wind_instensity;
-float wind_scale;
-float wind_speed_multiplier;
-float wind_gust_variation;
 
-float wind_low_branch_speed;
-float wind_low_speed;
-float branch_motion_twist_multiplier;
-float root_motion_multiplier;
+// Wheat-Wave
+float wheat_wave_enabled;
+float wheat_wave_scale;
+float wheat_wave_speed;
+float wheat_wave_frequency;
+float wheat_wave_gust;
+float wheat_wave_amount;
+float scene_wheat_wind_influence;
+float scene_wheat_wind_deform;
+float scene_wheat_wind_speed_response;
+float wheat_z_weight;
 
-float z_granding_origin;
-float z_granding_weight;
-
-float twig_curve_filter;
-float wind_z_speed;
-float wind_z_intensity;
-float wind_intensity;
-float wave_intensity;
-float wave_frequency;
-float wave_scale;
+// Wheat-Flutter
+float wheat_flutter_enabled;
+float wheat_flutter_speed;
+float wheat_flutter_amount;
+float scene_wheat_flutter_influence;
+float scene_wheat_flutter_deform;
+float scene_wheat_flutter_speed_response;
 
 // Interaction parameters
 float interaction_enabled;
@@ -294,16 +294,11 @@ float3 SafeNormalize(float3 input_vector) {
 
 float4 getBlendedWindDirectionStrength() {
     float blend_factor = saturate(scene_global_wind_instensity);
-    float3 local_wind_dir = SafeNormalize(global_wind_direction.xyz);
+    float3 local_wind_dir = SafeNormalize(local_wind_direction.xyz);
     float3 level_wind_dir = SafeNormalize(per_level_wind_direction_strength.xyz);
     float3 blended_wind_dir = SafeNormalize(lerp(local_wind_dir, level_wind_dir, blend_factor));
     float blended_wind_strength = lerp(global_wind_intensity, per_level_wind_direction_strength.w, blend_factor);
     return float4(blended_wind_dir, blended_wind_strength);
-}
-
-float TwigRamp(float x, float y) {
-    float value = pow(x, y) * x * (-10.0 + 1) / (x - 10.0);
-    return value;
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -438,8 +433,6 @@ float4 customPreviousObjectTransformation(float4 input_previous_object_position,
 }
 
 float4 customWorldTransformation(float4 input_world_position, inout CommonVertexShaderAccessibleParameters parameters) {
-    float twig_mask_value = TwigRamp(parameters.color.r, twig_curve_filter);
-
     float3 instance_pos, instance_scale;
     instance_pos = parameters.instance_attribute.position;
     instance_scale = parameters.instance_attribute.scale;
@@ -448,73 +441,71 @@ float4 customWorldTransformation(float4 input_world_position, inout CommonVertex
     float3 object_pivot_point = instance_pos;
     float3 relative_position = input_world_position.xyz - instance_pos;
 
-    //WindInput
-    float4 vertex_color_bias = (parameters.color - 1.0) * 2.0;
-    float wind_variation_time = vertex_color_bias.g + vertex_color_bias.b + per_frame_time.x;
+    // Wind-Local: direction & strength from per_level_wind_direction_strength
     float4 blended_wind = getBlendedWindDirectionStrength();
-    float3 global_wind_direction_nor = blended_wind.xyz;
-    float blended_wind_intensity = blended_wind.w;
-    float3 wind_direction = global_wind_direction_nor * float3(-1.0, -1.0, 0.0);
+    float3 wind_dir = blended_wind.xyz;
+    float wind_strength = blended_wind.w;
 
-    float3 wind_speed_val = global_wind_speed * 0.5 * wind_direction * wind_speed_multiplier;
-    float4 wind_mask_value = CHAOS_SAMPLE_TEX2D_LOD(wind_mask_map, input_world_position.xy * 100.0 / wind_scale + wind_variation_time * wind_speed_val.xy, 0.0);
-    float wind_mask = (wind_mask_value.r - 1.0) * 2.0;
-    float wind_gust_mask = saturate(wind_mask_value.g + (1.0 - wind_gust_variation));
+    float4 wind_result = input_world_position;
 
-    // Wheat wave: modulates wind strength spatially for natural grain-field sway.
-    float wave_gust = 1.0;
-    if (wave_intensity > 0.001) {
-        float2 wave_dir = normalize(global_wind_direction_nor.xy + float2(1e-5, 0.0));
-        float2 wave_across = float2(-wave_dir.y, wave_dir.x);
-        float2 wave_uv = input_world_position.xy * wave_scale;
-        float t = per_frame_time.x * global_wind_speed * 0.3;
-        float along = dot(wave_uv, wave_dir) * wave_frequency + t;
-        float cross = dot(wave_uv, wave_across) * wave_frequency * 0.6 + t * 0.7;
-        float wave = sin(along) * 0.55 + sin(along * 1.73 + 1.1) * 0.25
-        + sin(cross * 0.47 + 2.3) * 0.15 + sin(cross * 1.31 + 0.7) * 0.05;
-        wave_gust = 1.0 + wave * wave_intensity;
+    // --- Wheat Wave: multi-layer noise scrolling along wind → curved wave fronts ---
+    if (wheat_wave_enabled > 0.5 && wind_strength > 0.001) {
+        float t = per_frame_time.x;
+
+        // Wind direction + perpendicular for organic curve drift
+        float2 wind_xy = normalize(float2(wind_dir.x, wind_dir.y) + float2(1e-5, 0.0));
+        float2 wind_perp = float2(-wind_xy.y, wind_xy.x);
+
+        // wind_strength drives scroll speed (like scene_ripple_speed_response)
+        // 0 → wind_strength: no wind = no scroll, full wind = full speed
+        float speed = wheat_wave_speed * lerp(0.0, wind_strength, scene_wheat_wind_speed_response);
+
+        float2 uv = instance_pos.xy * wheat_wave_scale * wheat_wave_frequency * 0.02;
+        // -wind_xy: scroll opposite to sampling direction → wave front propagates WITH the wind
+        float n1 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, uv - wind_xy * t * speed * 0.25, 0.0).r;
+        float n2 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, uv * 1.7 - wind_xy * t * speed * 0.4 + wind_perp * t * speed * 0.1, 0.0).r;
+        float n3 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, uv * 3.1 - wind_xy * t * speed * 0.55 + wind_perp * t * speed * 0.08, 0.0).r;
+
+        float wave = n1 * 0.5 + n2 * 0.3 + n3 * 0.2;
+
+        // Gust sharpening: 0 = smooth, 1 = sharp on/off "阵阵"
+        float gust_half = max(0.02, 0.5 - wheat_wave_gust * 0.48);
+        wave = smoothstep(gust_half, 1.0 - gust_half, wave);
+
+        // 0 → wind_strength: no wind = no deformation
+        float wind_factor = lerp(0.0, wind_strength, scene_wheat_wind_influence) * scene_wheat_wind_deform;
+
+        float rel_z = input_world_position.z - instance_pos.z;
+        float h = saturate(rel_z / max(wheat_z_weight * instance_scale.z, 0.001));
+        float displace = wave * wheat_wave_amount * wind_factor * h * 0.12;
+
+        wind_result.xyz += float3(wind_dir.x, wind_dir.y, 0.0) * displace;
     }
-    float effective_gust = wind_gust_mask * wave_gust;
 
-    //ZMotion
-    float z_time_speed = (vertex_color_bias.g + per_frame_time.x + vertex_color_bias.b) * wind_z_speed;
-    float3 z_motion = float3(0.0, 0.0, wind_z_intensity * (sin(z_time_speed * 2 * PI / 3.41) + sin(z_time_speed * 2 * PI / 2.73)));
+    // --- Flutter: per-blade fast oscillation (independent from wheat wave, like frond ripple) ---
+    if (wheat_flutter_enabled > 0.5 && wind_strength > 0.001 && wheat_flutter_amount > 0.001) {
+        float t = per_frame_time.x;
 
-    //WindMotion (frond level)
-    float3 wind_motion = wind_mask * global_wind_direction_nor.xyz * float3(-1.0, -1.0, -1.0) + z_motion;
-    wind_motion = (wind_motion * wind_intensity) * (effective_gust * blended_wind_intensity) * twig_mask_value * 0.01;
+        // Instance position hash: breaks uniform phase alignment across blades
+        float blade_hash = frac(sin(dot(instance_pos.xy, float2(127.1, 311.7))) * 43758.5453);
 
-    //WindLowMotion
-    float3 wind_direction_low = global_wind_direction_nor * float3(1.0, -1.0, 0.0);
-    float random_time = per_frame_time.x + parameters.instance_attribute.random_value * 20;
-    wind_direction_low = clamp(float3(float2(wind_direction_low.y, wind_direction_low.x) + sin(random_time * 2 * PI / 7.0) * 0.25, 0.0), -1.0, 1.0);
+        float rel_z = input_world_position.z - instance_pos.z;
+        float h = saturate(rel_z / max(wheat_z_weight * instance_scale.z, 0.001));
 
-    //Variation
-    float wind_low_branch_variation_time = (parameters.color.r + random_time) * global_wind_speed * wind_low_branch_speed;
-    float wind_low_variation_time = (parameters.color.r + random_time) * global_wind_speed * wind_low_speed;
+        // 0 → wind_strength: no wind = no flutter speed
+        float speed = wheat_flutter_speed * lerp(0.0, wind_strength, scene_wheat_flutter_speed_response);
 
-    //BranchMotion
-    float branch_instensity = blended_wind_intensity * branch_motion_twist_multiplier;
-    branch_instensity *= ((cos(wind_low_branch_variation_time * 2 * PI / 5.0) * sin(wind_low_branch_variation_time * 2 * PI / 10.0) + 2.0) * 0.25 / 360.0);
-    branch_instensity *= effective_gust;
-    float3 branch_motion_pos = RotateAboutAxis(float4(object_orientation, branch_instensity * 2 * PI * 0.1), float3(0.0, 0.0, 0.0), relative_position);
-    branch_motion_pos *= twig_mask_value;
+        float fphase = t * speed
+        + blade_hash * 6.2831853
+        + h * 6.2831853;
 
-    //RootMotion
-    float root_instensity = blended_wind_intensity * root_motion_multiplier;
-    root_instensity *= ((cos(wind_low_variation_time * 2 * PI / 5.0) * sin(wind_low_variation_time * 2 * PI / 10.0) + 2.0) * 0.25 / 360.0);
-    root_instensity *= effective_gust;
-    float3 root_motion_pos = RotateAboutAxis(float4(wind_direction_low, root_instensity * 2 * PI), float3(0.0, 0.0, 0.0), relative_position);
-    float3 branch_root_motion = root_motion_pos + branch_motion_pos;
+        // Scene wind response (like scene_ripple_wind_influence + scene_ripple_deform_dir)
+        float flutter_factor = lerp(0.0, wind_strength, scene_wheat_flutter_influence) * scene_wheat_flutter_deform;
 
-    //ZGradient
-    float z_gradient = length(relative_position) / (z_granding_weight * instance_scale.z);
-    z_gradient = saturate(saturate(z_gradient) - z_granding_origin);
+        float flutter = sin(fphase) * wheat_flutter_amount * flutter_factor * h * 0.015;
 
-    branch_root_motion *= z_gradient;
-
-    // Apply wind
-    float4 wind_result = input_world_position + float4(wind_motion + branch_root_motion, 0.0);
+        wind_result.xyz += float3(wind_dir.x, wind_dir.y, 0.0) * flutter;
+    }
 
     // Interaction (runtime controlled)
     if (interaction_enabled > 0.5) {
@@ -542,8 +533,6 @@ float4 customWorldTransformation(float4 input_world_position, inout CommonVertex
 }
 
 float4 customPreviousWorldTransformation(float4 input_previous_world_position, inout CommonVertexShaderAccessibleParameters parameters) {
-    float twig_mask_value = TwigRamp(parameters.color.r, twig_curve_filter);
-
     float3 instance_pos, instance_scale;
     instance_pos = parameters.instance_attribute.pre_position;
     instance_scale = parameters.instance_attribute.pre_scale;
@@ -552,73 +541,62 @@ float4 customPreviousWorldTransformation(float4 input_previous_world_position, i
     float3 object_pivot_point = instance_pos;
     float3 relative_position = input_previous_world_position.xyz - instance_pos;
 
-    //WindInput
-    float4 vertex_color_bias = (parameters.color - 1.0) * 2.0;
-    float wind_variation_time = vertex_color_bias.g + vertex_color_bias.b + per_frame_previous_time.x;
+    // Wind-Local: direction & strength blend
     float4 blended_wind = getBlendedWindDirectionStrength();
-    float3 global_wind_direction_nor = blended_wind.xyz;
-    float blended_wind_intensity = blended_wind.w;
-    float3 wind_direction = global_wind_direction_nor * float3(-1.0, -1.0, 0.0);
+    float3 wind_dir = blended_wind.xyz;
+    float wind_strength = blended_wind.w;
 
-    float3 wind_speed_val = global_wind_speed * 0.5 * wind_direction * wind_speed_multiplier;
-    float4 wind_mask_value = CHAOS_SAMPLE_TEX2D_LOD(wind_mask_map, input_previous_world_position.xy * 100.0 / wind_scale + wind_variation_time * wind_speed_val.xy, 0.0);
-    float wind_mask = (wind_mask_value.r - 1.0) * 2.0;
-    float wind_gust_mask = saturate(wind_mask_value.g + (1.0 - wind_gust_variation));
+    float4 wind_result = input_previous_world_position;
 
-    // Wheat wave: modulates wind strength spatially for natural grain-field sway.
-    float wave_gust = 1.0;
-    if (wave_intensity > 0.001) {
-        float2 wave_dir = normalize(global_wind_direction_nor.xy + float2(1e-5, 0.0));
-        float2 wave_across = float2(-wave_dir.y, wave_dir.x);
-        float2 wave_uv = input_previous_world_position.xy * wave_scale;
-        float t = per_frame_previous_time.x * global_wind_speed * 0.3;
-        float along = dot(wave_uv, wave_dir) * wave_frequency + t;
-        float cross = dot(wave_uv, wave_across) * wave_frequency * 0.6 + t * 0.7;
-        float wave = sin(along) * 0.55 + sin(along * 1.73 + 1.1) * 0.25
-        + sin(cross * 0.47 + 2.3) * 0.15 + sin(cross * 1.31 + 0.7) * 0.05;
-        wave_gust = 1.0 + wave * wave_intensity;
+    // --- Wheat Wave: multi-layer noise (previous frame) ---
+    if (wheat_wave_enabled > 0.5 && wind_strength > 0.001) {
+        float t = per_frame_previous_time.x;
+
+        float2 wind_xy = normalize(float2(wind_dir.x, wind_dir.y) + float2(1e-5, 0.0));
+        float2 wind_perp = float2(-wind_xy.y, wind_xy.x);
+
+        float speed = wheat_wave_speed * lerp(0.0, wind_strength, scene_wheat_wind_speed_response);
+
+        float2 uv = instance_pos.xy * wheat_wave_scale * wheat_wave_frequency * 0.02;
+        float n1 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, uv - wind_xy * t * speed * 0.25, 0.0).r;
+        float n2 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, uv * 1.7 - wind_xy * t * speed * 0.4 + wind_perp * t * speed * 0.1, 0.0).r;
+        float n3 = CHAOS_SAMPLE_TEX2D_LOD(noise_map, uv * 3.1 - wind_xy * t * speed * 0.55 + wind_perp * t * speed * 0.08, 0.0).r;
+
+        float wave = n1 * 0.5 + n2 * 0.3 + n3 * 0.2;
+
+        float gust_half = max(0.02, 0.5 - wheat_wave_gust * 0.48);
+        wave = smoothstep(gust_half, 1.0 - gust_half, wave);
+
+        float wind_factor = lerp(0.0, wind_strength, scene_wheat_wind_influence) * scene_wheat_wind_deform;
+
+        float rel_z = input_previous_world_position.z - instance_pos.z;
+        float h = saturate(rel_z / max(wheat_z_weight * instance_scale.z, 0.001));
+        float displace = wave * wheat_wave_amount * wind_factor * h * 0.12;
+
+        wind_result.xyz += float3(wind_dir.x, wind_dir.y, 0.0) * displace;
     }
-    float effective_gust = wind_gust_mask * wave_gust;
 
-    //ZMotion
-    float z_time_speed = (vertex_color_bias.g + per_frame_previous_time.x + vertex_color_bias.b) * wind_z_speed;
-    float3 z_motion = float3(0.0, 0.0, wind_z_intensity * (sin(z_time_speed * 2 * PI / 3.41) + sin(z_time_speed * 2 * PI / 2.73)));
+    // --- Flutter (previous frame) ---
+    if (wheat_flutter_enabled > 0.5 && wind_strength > 0.001 && wheat_flutter_amount > 0.001) {
+        float t = per_frame_previous_time.x;
 
-    //WindMotion (frond level)
-    float3 wind_motion = wind_mask * global_wind_direction_nor.xyz * float3(-1.0, -1.0, -1.0) + z_motion;
-    wind_motion = (wind_motion * wind_intensity) * (effective_gust * blended_wind_intensity) * twig_mask_value * 0.01;
+        float blade_hash = frac(sin(dot(instance_pos.xy, float2(127.1, 311.7))) * 43758.5453);
 
-    //WindLowMotion
-    float3 wind_direction_low = global_wind_direction_nor * float3(1.0, -1.0, 0.0);
-    float random_time = per_frame_previous_time.x + parameters.instance_attribute.random_value * 20;
-    wind_direction_low = clamp(float3(float2(wind_direction_low.y, wind_direction_low.x) + sin(random_time * 2 * PI / 7.0) * 0.25, 0.0), -1.0, 1.0);
+        float rel_z = input_previous_world_position.z - instance_pos.z;
+        float h = saturate(rel_z / max(wheat_z_weight * instance_scale.z, 0.001));
 
-    //Variation
-    float wind_low_branch_variation_time = (parameters.color.r + random_time) * global_wind_speed * wind_low_branch_speed;
-    float wind_low_variation_time = (parameters.color.r + random_time) * global_wind_speed * wind_low_speed;
+        float speed = wheat_flutter_speed * lerp(0.0, wind_strength, scene_wheat_flutter_speed_response);
 
-    //BranchMotion
-    float branch_instensity = blended_wind_intensity * branch_motion_twist_multiplier;
-    branch_instensity *= ((cos(wind_low_branch_variation_time * 2 * PI / 5.0) * sin(wind_low_branch_variation_time * 2 * PI / 10.0) + 2.0) * 0.25 / 360.0);
-    branch_instensity *= effective_gust;
-    float3 branch_motion_pos = RotateAboutAxis(float4(object_orientation, branch_instensity * 2 * PI * 0.1), float3(0.0, 0.0, 0.0), relative_position);
-    branch_motion_pos *= twig_mask_value;
+        float fphase = t * speed
+        + blade_hash * 6.2831853
+        + h * 6.2831853;
 
-    //RootMotion
-    float root_instensity = blended_wind_intensity * root_motion_multiplier;
-    root_instensity *= ((cos(wind_low_variation_time * 2 * PI / 5.0) * sin(wind_low_variation_time * 2 * PI / 10.0) + 2.0) * 0.25 / 360.0);
-    root_instensity *= effective_gust;
-    float3 root_motion_pos = RotateAboutAxis(float4(wind_direction_low, root_instensity * 2 * PI), float3(0.0, 0.0, 0.0), relative_position);
-    float3 branch_root_motion = root_motion_pos + branch_motion_pos;
+        float flutter_factor = lerp(0.0, wind_strength, scene_wheat_flutter_influence) * scene_wheat_flutter_deform;
 
-    //ZGradient
-    float z_gradient = length(relative_position) / (z_granding_weight * instance_scale.z);
-    z_gradient = saturate(saturate(z_gradient) - z_granding_origin);
+        float flutter = sin(fphase) * wheat_flutter_amount * flutter_factor * h * 0.015;
 
-    branch_root_motion *= z_gradient;
-
-    // Apply wind
-    float4 wind_result = input_previous_world_position + float4(wind_motion + branch_root_motion, 0.0);
+        wind_result.xyz += float3(wind_dir.x, wind_dir.y, 0.0) * flutter;
+    }
 
     // Interaction (runtime controlled)
     if (interaction_enabled > 0.5) {
